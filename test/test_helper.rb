@@ -19,3 +19,9 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 end
+
+class ActionDispatch::IntegrationTest
+  # Lets request tests authenticate with `sign_in(user)` without driving the
+  # Devise login form (which would render the full asset-pipeline layout).
+  include Devise::Test::IntegrationHelpers
+end
