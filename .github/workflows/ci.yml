@@ -52,6 +52,11 @@ jobs:
         # packages must be present for any view that renders the layout.
         run: yarn install --frozen-lockfile
 
+      - name: Build JavaScript bundle
+        # app/assets/builds/application.js is gitignored, so the layout's
+        # javascript_include_tag has nothing to resolve until webpack builds it.
+        run: yarn build
+
       - name: Prepare test database
         run: bin/rails db:test:prepare
 
