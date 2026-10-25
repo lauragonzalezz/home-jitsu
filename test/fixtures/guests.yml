@@ -1,0 +1,9 @@
+bob_pending:
+  event: open_mat
+  guest: bob
+  status: Pending
+
+carol_accepted:
+  event: open_mat
+  guest: carol
+  status: Accept

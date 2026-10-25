@@ -1,0 +1,46 @@
+<% password = Devise::Encryptor.digest(User, "password123") %>
+
+alice:
+  first_name: Alice
+  last_name: Silva
+  email: alice@example.com
+  encrypted_password: <%= password %>
+  weight: 65
+  height: 165
+  belt: Blue
+  years_of_experience: 3
+  address: 123 Main St, Boston, MA
+  gender: Female
+  training_style: Gi
+  latitude: 42.3601
+  longitude: -71.0589
+
+bob:
+  first_name: Bob
+  last_name: Costa
+  email: bob@example.com
+  encrypted_password: <%= password %>
+  weight: 80
+  height: 180
+  belt: Purple
+  years_of_experience: 6
+  address: 500 Boylston St, Boston, MA
+  gender: Male
+  training_style: Both
+  latitude: 42.3503
+  longitude: -71.0810
+
+carol:
+  first_name: Carol
+  last_name: Nunes
+  email: carol@example.com
+  encrypted_password: <%= password %>
+  weight: 58
+  height: 160
+  belt: White
+  years_of_experience: 1
+  address: 1 City Hall Sq, Boston, MA
+  gender: Female
+  training_style: No-gi
+  latitude: 42.3604
+  longitude: -71.0577

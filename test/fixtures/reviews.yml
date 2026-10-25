@@ -1,0 +1,11 @@
+bob_reviews_alice:
+  user: alice
+  writer: bob
+  content: Great training partner, very technical.
+  rating: 5
+
+alice_reviews_bob:
+  user: bob
+  writer: alice
+  content: Strong pressure passing.
+  rating: 4

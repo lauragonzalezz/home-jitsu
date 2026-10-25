@@ -1,18 +1,23 @@
-require 'test_helper'
+require "test_helper"
 
 class UserPolicyTest < ActiveSupport::TestCase
-  def test_scope
+  setup do
+    @user = users(:alice)
+    @other = users(:bob)
   end
 
-  def test_show
+  test "anyone can view a profile and the public listings" do
+    policy = UserPolicy.new(@other, @user)
+    assert policy.show?
+    assert policy.invite_partners_list?
+    assert policy.my_events?
   end
 
-  def test_create
-  end
+  test "a user can only edit or update their own profile" do
+    assert UserPolicy.new(@user, @user).edit?
+    assert UserPolicy.new(@user, @user).update?
 
-  def test_update
-  end
-
-  def test_destroy
+    assert_not UserPolicy.new(@other, @user).edit?
+    assert_not UserPolicy.new(@other, @user).update?
   end
 end
