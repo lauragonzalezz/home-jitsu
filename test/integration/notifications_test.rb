@@ -17,4 +17,17 @@ class NotificationsTest < ActionDispatch::IntegrationTest
     get my_messages_path
     assert_response :success
   end
+
+  test "my_messages renders a chatroom with messages and an unread notification" do
+    alice = users(:alice)
+    bob = users(:bob)
+    chatroom = Chatroom.create!(name: "private_#{[alice.id, bob.id].min}_#{[alice.id, bob.id].max}_")
+    chatroom.messages.create!(user: bob, content: "oss")
+    # Exercises _chat.html.erb's chat.notifications_as_chatroom lookup.
+    MessageNotification.with(record: chatroom, type: "message").deliver(alice)
+
+    sign_in alice
+    get my_messages_path
+    assert_response :success
+  end
 end
