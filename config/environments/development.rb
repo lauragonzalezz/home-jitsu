@@ -34,6 +34,10 @@ Rails.application.configure do
   end
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
+  # Images are served through Cloudinary's view helpers (cl_image_tag), which
+  # expect the blob key to be the Cloudinary public_id, so dev uploads must go
+  # to Cloudinary too. Set CLOUDINARY_URL in .env. (A later change will move
+  # rendering to Active Storage and let dev use local disk without an account.)
   config.active_storage.service = :cloudinary
 
   # Don't care if the mailer can't send.

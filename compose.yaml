@@ -1,0 +1,47 @@
+name: home-jitsu
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+    command: bin/dev
+    ports:
+      - "3000:3000"
+    volumes:
+      # Source is mounted so edits on the host show up live in the container.
+      - .:/rails
+      # Gems and node_modules live in named volumes, not on the host mount, so
+      # they are not clobbered by the bind mount and survive rebuilds.
+      - bundle:/usr/local/bundle
+      - node_modules:/rails/node_modules
+    environment:
+      DATABASE_HOST: db
+      DATABASE_USER: postgres
+      DATABASE_PASSWORD: postgres
+      DATABASE_PORT: 5432
+    # App secrets (MAPBOX_API_KEY, etc.) are read from .env by dotenv-rails.
+    # The file is gitignored; copy .env.example to .env to get started.
+    depends_on:
+      db:
+        condition: service_healthy
+    stdin_open: true
+    tty: true
+
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  bundle:
+  node_modules:
+  pg_data:

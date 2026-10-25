@@ -1,0 +1,25 @@
+# Keep the build context small and avoid copying host-only / secret files.
+.git
+.gitignore
+
+# Dependencies are installed inside the image / named volumes.
+/node_modules
+/vendor/bundle
+
+# Rails runtime artifacts.
+/log/*
+/tmp/*
+/storage/*
+/public/assets
+/public/packs
+/app/assets/builds/*
+
+# Secrets and local env.
+/.env
+/.env.*
+!/.env.example
+/config/master.key
+
+# Editor / OS noise.
+.DS_Store
+.devcontainer
