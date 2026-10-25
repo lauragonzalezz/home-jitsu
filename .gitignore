@@ -47,3 +47,7 @@
 
 # Personal, machine-local Claude Code instructions. Never commit.
 /CLAUDE.local.md
+/CLAUDE.md
+
+# Local planning docs. Never commit.
+/plans/
