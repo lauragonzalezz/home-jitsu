@@ -41,6 +41,17 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Install JS dependencies
+        # application.scss imports Bootstrap's SCSS from node_modules, so the
+        # packages must be present for any view that renders the layout.
+        run: yarn install --frozen-lockfile
+
       - name: Prepare test database
         run: bin/rails db:test:prepare
 
