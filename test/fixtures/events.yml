@@ -1,0 +1,19 @@
+open_mat:
+  host: alice
+  title: Sunday Open Mat
+  description: Friendly rolls, all belts welcome.
+  date: <%= 1.week.from_now.to_fs(:db) %>
+  status: Open
+  address: 100 Cambridge St, Boston, MA
+  latitude: 42.3615
+  longitude: -71.0636
+
+closed_mat:
+  host: bob
+  title: Comp Class
+  description: Competition prep, upper belts.
+  date: <%= 2.days.from_now.to_fs(:db) %>
+  status: Closed
+  address: 700 Atlantic Ave, Boston, MA
+  latitude: 42.3509
+  longitude: -71.0556

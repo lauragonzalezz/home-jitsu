@@ -1,0 +1,9 @@
+alice_bob:
+  requester: alice
+  requestee: bob
+  status: accepted
+
+carol_alice:
+  requester: carol
+  requestee: alice
+  status: pending

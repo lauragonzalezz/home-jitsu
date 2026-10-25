@@ -1,18 +1,31 @@
-require 'test_helper'
+require "test_helper"
 
 class ChatroomPolicyTest < ActiveSupport::TestCase
-  def test_scope
+  setup do
+    @alice = users(:alice)
+    @bob = users(:bob)
+    @carol = users(:carol)
+    @chatroom = Chatroom.create!(name: "chatroom_#{@alice.id}_#{@bob.id}_")
   end
 
-  def test_show
+  test "a participant can view the chatroom" do
+    assert ChatroomPolicy.new(@alice, @chatroom).show?
+    assert ChatroomPolicy.new(@bob, @chatroom).show?
   end
 
-  def test_create
+  test "a non-participant cannot view the chatroom" do
+    assert_not ChatroomPolicy.new(@carol, @chatroom).show?
   end
 
-  def test_update
+  test "anyone can create a chatroom and see their messages" do
+    assert ChatroomPolicy.new(@carol, @chatroom).create?
+    assert ChatroomPolicy.new(@carol, @chatroom).my_messages?
   end
 
-  def test_destroy
+  test "scope only returns chatrooms the user participates in" do
+    other = Chatroom.create!(name: "chatroom_#{@bob.id}_#{@carol.id}_")
+    scope = ChatroomPolicy::Scope.new(@alice, Chatroom).resolve
+    assert_includes scope, @chatroom
+    assert_not_includes scope, other
   end
 end
