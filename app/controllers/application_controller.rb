@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_notifications
-    notifications = Notification.where(recipient: current_user)
+    notifications = Noticed::Notification.where(recipient: current_user)
     @unread = notifications.unread
     @read = notifications.read
   end
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   end
 
   def mark_notification_as_read(notification)
-    Notification.find(notification).mark_as_read! if notification
+    Noticed::Notification.find(notification).mark_as_read! if notification
   end
 
   private

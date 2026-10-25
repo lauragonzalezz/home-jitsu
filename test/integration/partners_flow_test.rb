@@ -4,7 +4,7 @@ class PartnersFlowTest < ActionDispatch::IntegrationTest
   test "a user can send a partner request, creating a pending partner and a notification" do
     sign_in users(:carol)
 
-    assert_difference ["Partner.count", "Notification.count"], 1 do
+    assert_difference ["Partner.count", "Noticed::Notification.count"], 1 do
       post partners_path, params: { requester_id: users(:carol).id, requestee_id: users(:bob).id }
     end
 

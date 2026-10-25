@@ -5,7 +5,7 @@ class GuestsFlowTest < ActionDispatch::IntegrationTest
     sign_in users(:carol)
     event = events(:closed_mat) # hosted by bob
 
-    assert_difference ["Guest.count", "Notification.count"], 1 do
+    assert_difference ["Guest.count", "Noticed::Notification.count"], 1 do
       post guests_path, params: { event_id: event.id }
     end
 

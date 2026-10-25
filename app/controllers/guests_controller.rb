@@ -71,7 +71,6 @@ class GuestsController < ApplicationController
     notification = GuestNotification.with(
       type: "event",
       message: "#{@guest.guest.first_name} would like to join your event",
-      recipient: @guest.guest,
       link_to: @guest.event
     )
     notification.deliver(host)
@@ -82,7 +81,6 @@ class GuestsController < ApplicationController
     notification = GuestNotification.with(
       type: "event",
       message: "#{@guest.event.host.first_name} invited you to their event",
-      recipient: @guest.guest,
       link_to: @guest.event
     )
     notification.deliver(guest)
@@ -93,7 +91,6 @@ class GuestsController < ApplicationController
     notification = GuestNotification.with(
       type: "event",
       message: "#{@guest.event.host.first_name} accepted your request to join this event",
-      recipient: @guest.guest,
       link_to: @guest.event
     )
     notification.deliver(guest)
@@ -104,7 +101,6 @@ class GuestsController < ApplicationController
     notification = GuestNotification.with(
       type: "event",
       message: "#{@guest.guest.first_name} accepted the invite to your event",
-      recipient: @guest.guest,
       link_to: @guest.event
     )
     notification.deliver(host)
