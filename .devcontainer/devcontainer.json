@@ -1,0 +1,19 @@
+{
+  "name": "Home-Jitsu",
+  "dockerComposeFile": "../compose.yaml",
+  "service": "app",
+  "workspaceFolder": "/rails",
+  // Keep the container idle instead of running bin/dev, so the editor can
+  // attach and we run commands (bin/rails, bin/dev) by hand.
+  "overrideCommand": true,
+  // First-run provisioning: bundle, yarn, create/migrate/seed the DB.
+  "postCreateCommand": "bin/setup",
+  "forwardPorts": [3000],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Shopify.ruby-lsp"
+      ]
+    }
+  }
+}

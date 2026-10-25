@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+set -e
+
+# Runs before the container's main command. Makes `docker compose up` work from
+# a fresh clone: the bundle and node_modules volumes start empty, so install
+# dependencies if they are missing, then create/migrate/seed the database.
+# Everything here is idempotent, so it is cheap to re-run on every boot.
+
+# Ruby gems (installed to /usr/local/bundle, outside the source mount).
+bundle check >/dev/null 2>&1 || bundle install
+
+# JS packages (node_modules is a named volume shadowing the source mount).
+if [ ! -d node_modules ] || [ -z "$(ls -A node_modules 2>/dev/null)" ]; then
+  yarn install
+fi
+
+# Remove a stale server PID left behind when a container is killed without a
+# clean shutdown, otherwise Puma refuses to start ("A server is already running").
+rm -f tmp/pids/server.pid
+
+# Create the database if needed, run migrations, and seed on first creation.
+bin/rails db:prepare
+
+exec "$@"

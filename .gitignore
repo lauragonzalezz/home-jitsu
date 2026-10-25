@@ -41,3 +41,9 @@
 *.swp
 .DS_Store
 .env*
+
+# Keep the committed env template (the .env* rules above would hide it).
+!/.env.example
+
+# Personal, machine-local Claude Code instructions. Never commit.
+/CLAUDE.local.md
