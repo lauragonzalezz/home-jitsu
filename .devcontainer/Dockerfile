@@ -3,17 +3,8 @@
 # Ships Ruby, Node and Yarn in one image so bin/dev can run the Rails server
 # and the webpack watcher side by side. This is the DEV box only; the Rails 8
 # production Dockerfile (multi-stage, Thruster) comes later in the upgrade.
-ARG RUBY_VERSION=3.1.2
+ARG RUBY_VERSION=3.3.6
 FROM ruby:${RUBY_VERSION}-slim
-
-# Debian 11 (bullseye) is end-of-life and no longer on the standard mirrors,
-# so repoint apt at the archive before installing anything. (This image is
-# pinned to the app's current Ruby 3.1.2; it goes away when we bump Ruby.)
-RUN printf '%s\n' \
-      'deb http://archive.debian.org/debian bullseye main' \
-      'deb http://archive.debian.org/debian-security bullseye-security main' \
-      > /etc/apt/sources.list && \
-    echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid
 
 # OS packages: build tools for native gems (pg), the Postgres client lib,
 # libvips for Active Storage variants, plus git/curl for tooling and Node setup.
