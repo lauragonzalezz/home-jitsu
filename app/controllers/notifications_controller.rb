@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
   def index
-    @notifications = policy_scope(Notification)
+    @notifications = policy_scope(Noticed::Notification)
   end
 end

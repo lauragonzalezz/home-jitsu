@@ -50,10 +50,10 @@ class User < ApplicationRecord
     list.compact.uniq
   end
   has_many :messages
-  has_many :notifications, as: :recipient, dependent: :destroy
+  has_many :notifications, as: :recipient, dependent: :destroy, class_name: "Noticed::Notification"
 
   def unread_notifications
-    notifications.unread.select { |notification| notification.params[:type] != 'message' }
+    notifications.unread.reject { |notification| notification.params[:type] == 'message' }
   end
 
   def unread_messages
