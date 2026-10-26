@@ -1,0 +1,13 @@
+{
+  "name": "Home-Jitsu",
+  "short_name": "Home-Jitsu",
+  "description": "Find Brazilian jiu-jitsu training partners and open mats near you.",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    { "src": "/icon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/icon.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}

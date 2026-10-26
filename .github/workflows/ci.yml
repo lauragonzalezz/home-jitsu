@@ -57,6 +57,11 @@ jobs:
         # javascript_include_tag has nothing to resolve until webpack builds it.
         run: yarn build
 
+      - name: Build CSS bundle
+        # Propshaft serves app/assets/builds/application.css, produced by
+        # cssbundling (dart-sass). Also gitignored, so build it in CI.
+        run: yarn build:css
+
       - name: Prepare test database
         run: bin/rails db:test:prepare
 

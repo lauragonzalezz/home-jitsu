@@ -1,0 +1,14 @@
+# Solid Cable storage table for Action Cable messages. Lives on the primary
+# database (single-DB setup) so production needs no Redis for pub/sub.
+class CreateSolidCableMessages < ActiveRecord::Migration[8.0]
+  def change
+    create_table :solid_cable_messages, force: :cascade do |t|
+      t.binary :channel, limit: 1024, null: false
+      t.binary :payload, limit: 536870912, null: false
+      t.datetime :created_at, null: false
+      t.integer :channel_hash, limit: 8, null: false
+      t.index [:channel_hash], name: "index_solid_cable_messages_on_channel_hash"
+      t.index [:created_at], name: "index_solid_cable_messages_on_created_at"
+    end
+  end
+end

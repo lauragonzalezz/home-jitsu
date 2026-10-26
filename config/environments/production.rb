@@ -55,12 +55,13 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
 
-  # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  # Database-backed cache on the primary Postgres (no Redis/Memcached).
+  config.cache_store = :solid_cache_store
 
-  # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter     = :resque
-  # config.active_job.queue_name_prefix = "home_jitsu_production"
+  # Database-backed Active Job queue on the primary Postgres. The Solid Queue
+  # supervisor runs in-process with Puma via SOLID_QUEUE_IN_PUMA.
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :primary } }
 
   config.action_mailer.perform_caching = false
 
