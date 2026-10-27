@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.6"
+ruby "3.4.12"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.0"
@@ -27,6 +27,10 @@ gem "stimulus-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder"
+
+# Ruby 3.4 dropped csv from the default gems, so declare it explicitly.
+# Pulled in transitively (e.g. geocoder) and would otherwise fail to load.
+gem "csv"
 
 # The Solid trifecta: database-backed Action Cable, Active Job and cache,
 # all on the primary Postgres database. This removes the Redis dependency
