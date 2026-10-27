@@ -3,7 +3,7 @@
 # Ships Ruby, Node and Yarn in one image so bin/dev can run the Rails server
 # and the webpack watcher side by side. This is the DEV box only; the Rails 8
 # production Dockerfile (multi-stage, Thruster) comes later in the upgrade.
-ARG RUBY_VERSION=3.3.6
+ARG RUBY_VERSION=3.4.12
 FROM ruby:${RUBY_VERSION}-slim
 
 # OS packages: build tools for native gems (pg), the Postgres client lib,
