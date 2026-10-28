@@ -6,7 +6,7 @@
         <% if user.photo.key %>
           <%= cl_image_tag user.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
         <% else %>
-          <%= image_tag "avatar.svg", alt: "user", width: 40, class: "avatar" %>
+          <%= image_tag "avatar.svg", alt: "", width: 40, class: "avatar" %>
         <% end %>
       <% end %>
       <div class="flex-grow-1">

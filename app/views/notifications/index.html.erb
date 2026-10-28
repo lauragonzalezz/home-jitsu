@@ -9,7 +9,7 @@
       <% if notification.params[:type] == "event" %>
         <%= link_to event_path(notification.params[:link_to], :notification_id => notification.id) , :action => 'go', class: "card-box bg-white" do %>
           <div class="d-flex card-grid">
-            <%= image_tag "icons/calendar.svg", alt: "user", width: 30, class: "Calendar" %>
+            <%= image_tag "icons/calendar.svg", alt: "", width: 30, class: "Calendar" %>
             <div class="flex-grow-1">
               <p class="m-0"><strong><%= "#{notification.params[:message]}" %></strong></p>
               <small><%= "#{time_ago_in_words(notification.created_at).capitalize}" %> ago</small>
@@ -19,7 +19,7 @@
       <% elsif notification.params[:type] == "review" %>
         <%= link_to user_reviews_path(notification.params[:link_to], :notification_id => notification.id), :action => 'go', class: "card-box bg-white" do %>
           <div class="d-flex card-grid">
-            <%= image_tag "icons/users.svg", alt: "user", width: 30, class: "Users" %>
+            <%= image_tag "icons/users.svg", alt: "", width: 30, class: "Users" %>
             <div class="flex-grow-1">
               <p class="m-0"><strong><%= "#{notification.params[:message]}" %></strong></p>
               <small><%= "#{time_ago_in_words(notification.created_at).capitalize}" %> ago</small>
@@ -29,7 +29,7 @@
       <% elsif notification.params[:type] == "user" %>
         <%= link_to user_path(notification.params[:link_to], :notification_id => notification.id), :action => 'go', class: "card-box bg-white" do %>
           <div class="d-flex card-grid">
-            <%= image_tag "icons/users.svg", alt: "user", width: 30, class: "Users" %>
+            <%= image_tag "icons/users.svg", alt: "", width: 30, class: "Users" %>
             <div class="flex-grow-1">
               <p class="m-0"><strong><%= "#{notification.params[:message]}" %></strong></p>
               <small><%= "#{time_ago_in_words(notification.created_at).capitalize}" %> ago</small>
