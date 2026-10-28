@@ -1,15 +1,19 @@
-<div class="footer">
-  <div class="container">
+<footer class="footer">
+  <nav class="container" aria-label="Primary">
     <div class="d-flex align-items-center justify-content-between">
       <% if user_signed_in? %>
-        <%= link_to "Home", root_path, class: "home" %>
-        <%= link_to "Partners", partners_path, class: "partners" %>
-        <%= link_to "Events", my_events_path, class: "events" %>
-        <%= link_to "Messages", my_messages_path, class: "messages #{'new' unless current_user.unread_messages.empty?}" %>
-        <%= link_to "Notifications", notifications_path, class: "notifications #{'new' unless current_user.unread_notifications.empty?}" %>
+        <%= link_to root_path, class: "home" do %>Home<% end %>
+        <%= link_to partners_path, class: "partners" do %>Partners<% end %>
+        <%= link_to my_events_path, class: "events" do %>Events<% end %>
+        <%= link_to my_messages_path, class: "messages #{'new' unless current_user.unread_messages.empty?}" do %>
+          Messages<% unless current_user.unread_messages.empty? %><span class="visually-hidden"> (unread)</span><% end %>
+        <% end %>
+        <%= link_to notifications_path, class: "notifications #{'new' unless current_user.unread_notifications.empty?}" do %>
+          Notifications<% unless current_user.unread_notifications.empty? %><span class="visually-hidden"> (unread)</span><% end %>
+        <% end %>
       <% else %>
-        <%= link_to "Home", root_path, class: "home mx-auto" %>
+        <%= link_to root_path, class: "home mx-auto" do %>Home<% end %>
       <% end %>
     </div>
-  </div>
-</div>
+  </nav>
+</footer>
