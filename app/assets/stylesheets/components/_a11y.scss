@@ -1,0 +1,28 @@
+// Shared accessibility styles: a single visible focus indicator for every
+// interactive element (the app had none), plus the skip-to-content link.
+
+:focus-visible {
+  outline: 2px solid $deep-purple;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+// Don't double up: elements that show a focus-visible ring drop the legacy
+// outline browsers draw on plain :focus.
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+// The skip link stays hidden until focused (Bootstrap .visually-hidden-focusable),
+// then anchors to the top-left so keyboard users land on it first.
+.skip-link:focus {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1080;
+  padding: 8px 16px;
+  background: $white;
+  color: $deep-purple;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}

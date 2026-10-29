@@ -13,7 +13,7 @@ if last_message
       <% if other_user.photo.key %>
         <%= cl_image_tag other_user.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
       <% else %>
-        <%= image_tag "avatar.svg", alt: "user", width: 40, class: "avatar" %>
+        <%= image_tag "avatar.svg", alt: "", width: 40, class: "avatar" %>
       <% end %>
       <div class="flex-grow-1">
         <p class="m-0"><strong><%= other_user.first_name %> <%= other_user.last_name %></strong></p>

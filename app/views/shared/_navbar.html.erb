@@ -1,15 +1,15 @@
-<div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon" aria-label="Main">
   <div class="container">
     <% if user_signed_in? %>
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <div class="d-flex align-items-center" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu">
+          <button type="button" class="btn btn-link p-0 border-0 d-flex align-items-center" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu" aria-label="Open menu">
               <% if current_user.photo.key %>
                 <%= cl_image_tag current_user.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
               <% else %>
-                <%= image_tag "avatar.svg", alt: "user", width: 30 %>
+                <%= image_tag "avatar.svg", alt: "", width: 30 %>
               <% end %>
-          </div>
+          </button>
         </li>
       </ul>
     <% end %>
@@ -21,9 +21,9 @@
 
     <% if user_signed_in? %>
       <div class="dropdown search ms-auto">
-        <div class="dropdown-toggle d-flex align-items-center" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= image_tag "icons/search.svg", alt: "user", width: 20 %>
-        </div>
+        <button type="button" class="dropdown-toggle btn btn-link p-0 border-0 d-flex align-items-center" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Search">
+          <%= image_tag "icons/search.svg", alt: "", width: 20 %>
+        </button>
         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
           <%= link_to "Search for partners", users_path, class: "dropdown-item py-2" %>
           <%= link_to "Search for events", events_path, class: "dropdown-item py-2" %>
@@ -31,7 +31,7 @@
       </div>
     <% end %>
   </div>
-</div>
+</nav>
 <% if user_signed_in? %>
   <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
     <div class="offcanvas-header border-bottom">

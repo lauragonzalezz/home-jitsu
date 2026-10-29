@@ -7,14 +7,14 @@
           <% if friend.photo.key %>
             <%= cl_image_tag friend.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
           <% else %>
-            <%= image_tag "avatar.svg", alt: "user", width: 40, class: "avatar" %>
+            <%= image_tag "avatar.svg", alt: "", width: 40, class: "avatar" %>
           <% end %>
         <% end %>
         <div class="flex-grow-1">
           <p class="m-0">
             <strong><%= link_to user_path(friend), :action => 'go' do %><%= friend.first_name %> <%= friend.last_name %><% end %></strong>
             <% if friend.belt != "None" %>
-              <%= image_tag "belts/#{friend.belt.downcase}-belt.svg", alt: "belt", width: 20, class: "belt" %>
+              <%= image_tag "belts/#{friend.belt.downcase}-belt.svg", alt: "#{friend.belt} belt", width: 20, class: "belt" %>
             <% end %>
           </p>
           <small>

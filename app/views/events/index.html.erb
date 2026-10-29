@@ -2,6 +2,7 @@
   <div class="form-box bg-light-grey">
     <%# TODO: Logic for search and advanced search %>
    <%= form_with url: events_path, method: :get, class: "d-flex" do |form| %>
+      <%= label_tag :query, "Find events close to this address", class: "visually-hidden" %>
       <%= text_field_tag :query,
         params[:query],
         class: "form-control search-icon",

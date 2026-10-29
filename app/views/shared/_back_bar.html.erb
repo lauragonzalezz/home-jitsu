@@ -10,7 +10,7 @@
           <% if user.photo.key %>
             <%= cl_image_tag user.photo.key, crop: :thumb, class: "rounded-circle avatar me-2" %>
           <% else %>
-            <%= image_tag "avatar.svg", alt: "user", width: 30, class: "avatar me-2" %>
+            <%= image_tag "avatar.svg", alt: "", width: 30, class: "avatar me-2" %>
           <% end %>
         <% end %>
       <% end %>

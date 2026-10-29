@@ -15,7 +15,7 @@
         <% if host.photo.key %>
           <%= cl_image_tag host.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
         <% else %>
-          <%= image_tag "avatar.svg", alt: "host", width: 40, class: "avatar" %>
+          <%= image_tag "avatar.svg", alt: "", width: 40, class: "avatar" %>
         <% end %>
         <div class="flex-grow-1">
           <p class="m-0"><strong><%= host.first_name %> <%= host.last_name %></strong></p>
@@ -29,7 +29,7 @@
         </div>
         <div>
           <% if host.belt != "None" %>
-            <%= image_tag "belts/#{host.belt.downcase}-belt.svg", alt: "belt", width: 20, class: "belt" %>
+            <%= image_tag "belts/#{host.belt.downcase}-belt.svg", alt: "#{host.belt} belt", width: 20, class: "belt" %>
           <% end %>
           <small>
             <% if host.years_of_experience > 0 %>
@@ -48,7 +48,7 @@
       <h2 class="mt-0">Details</h2>
       <p class="text-secondary"><%= @event.description %></p>
       <div class="address">
-        <small><%= image_tag "icons/map-pin.svg", alt: "here", width: 14 %> <%= @event.address %></small>
+        <small><%= image_tag "icons/map-pin.svg", alt: "", width: 14 %> <%= @event.address %></small>
       </div>
     </div>
     <div id='map' style="width: 100%; height: 150px;"
@@ -84,7 +84,7 @@
                 <% if user.photo.key %>
                   <%= cl_image_tag user.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
                 <% else %>
-                  <%= image_tag "avatar.svg", alt: "user", width: 40, class: "avatar" %>
+                  <%= image_tag "avatar.svg", alt: "", width: 40, class: "avatar" %>
                 <% end %>
               <% end %>
               <div class="flex-grow-1">
@@ -100,8 +100,8 @@
                 </small>
               </div>
               <div class="d-flex align-items-center">
-                <%= button_to raw("<i class='fa-solid fa-check'></i>"),  {:controller => "guests", :action => "accept", :event_id => @event.id, :guest_id => guest.id  },  {:method=>:patch, class: "btn btn-xs btn-primary d-block w-100"} %>
-                <%= button_to raw("<i class='fa-solid fa-xmark'></i>"),  {:controller => "guests", :action => "reject", :event_id => @event.id, :guest_id => guest.id },  {:method=>:patch, class: "btn btn-xs btn-secondary d-block w-100 ms-1"} %>
+                <%= button_to raw("<i class='fa-solid fa-check' aria-hidden='true'></i>"),  {:controller => "guests", :action => "accept", :event_id => @event.id, :guest_id => guest.id  },  {:method=>:patch, class: "btn btn-xs btn-primary d-block w-100", "aria-label" => "Accept #{user.first_name}"} %>
+                <%= button_to raw("<i class='fa-solid fa-xmark' aria-hidden='true'></i>"),  {:controller => "guests", :action => "reject", :event_id => @event.id, :guest_id => guest.id },  {:method=>:patch, class: "btn btn-xs btn-secondary d-block w-100 ms-1", "aria-label" => "Reject #{user.first_name}"} %>
               </div>
             </div>
           </div>

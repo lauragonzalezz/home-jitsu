@@ -4,7 +4,7 @@
     <% if @user.photo.key %>
       <%= cl_image_tag @user.photo.key, crop: :thumb, class: "rounded-circle avatar-large" %>
     <% else %>
-      <%= image_tag "avatar.svg", alt: "user", width: 40, class: "avatar-large" %>
+      <%= image_tag "avatar.svg", alt: "", width: 40, class: "avatar-large" %>
     <% end %>
   </div>
 </div>
@@ -17,16 +17,17 @@
                   as: :select,
                   required: true,
                   collection: (1..5),
-                  label: false,
+                  label: "Rating",
+                  label_html: { class: "visually-hidden" },
                   prompt: "What's your rating",
-                  input_html: { autocomplete: "Leave them a rating from 1-5", data: {controller: "star-rating", options: {"tooltip":false}} }%>
+                  input_html: { data: {controller: "star-rating", options: {"tooltip":false}} }%>
         <%= f.input :content,
                   as: :text,
                   required: true,
-                  label: false,
+                  label: "Review",
+                  label_html: { class: "visually-hidden" },
                   autofocus: true,
-                  placeholder: 'Content *',
-                  input_html: { autocomplete: "Let us know what you think of #{@user.first_name}" }%>
+                  placeholder: 'Content *' %>
         <%= f.submit "Submit review", class: "btn btn-primary d-block w-100" %>
       <% end %>
     </div>
