@@ -24,4 +24,18 @@ class PartnerTest < ActiveSupport::TestCase
   test "users returns the pair in requester, requestee order" do
     assert_equal [ users(:alice), users(:bob) ], partners(:alice_bob).users
   end
+
+  test "between finds the partnership whichever user sent the request" do
+    partnership = partners(:alice_bob) # alice requested bob
+    assert_equal partnership, Partner.between(users(:alice), users(:bob)).first
+    assert_equal partnership, Partner.between(users(:bob), users(:alice)).first
+  end
+
+  test "between accepts ids as well as records" do
+    assert_equal partners(:alice_bob), Partner.between(users(:alice).id, users(:bob).id).first
+  end
+
+  test "between is empty when the two users have no partnership" do
+    assert_empty Partner.between(users(:bob), users(:carol))
+  end
 end
