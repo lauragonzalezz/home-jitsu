@@ -1,7 +1,7 @@
 class ChatroomsController < ApplicationController
   def show
     @chatroom = Chatroom.find(params[:id])
-    @messages = @chatroom.messages.order('messages.created_at asc')
+    @messages = @chatroom.messages.order("messages.created_at asc")
     @message = Message.new
     set_notifications_to_read
     authorize @chatroom
@@ -15,7 +15,7 @@ class ChatroomsController < ApplicationController
   end
 
   def my_messages
-    @chatrooms = Chatroom.where("name LIKE ?", "%_#{current_user.id}_%").includes(:messages).order('messages.created_at DESC')
+    @chatrooms = Chatroom.where("name LIKE ?", "%_#{current_user.id}_%").includes(:messages).order("messages.created_at DESC")
     authorize @chatrooms
   end
 

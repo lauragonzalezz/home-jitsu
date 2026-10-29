@@ -17,6 +17,6 @@ class Chatroom < ApplicationRecord
     ids = room.scan(/\d+/).map(&:to_i)
     other_id = ids.select { |id| id != current_user.id }
     user = User.find(other_id[0])
-    return user
+    user
   end
 end

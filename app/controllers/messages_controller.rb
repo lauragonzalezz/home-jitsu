@@ -15,7 +15,7 @@ class MessagesController < ApplicationController
       set_message_notifications_as_read
       head :ok
     else
-      @messages = @chatroom.messages.order('messages.created_at asc')
+      @messages = @chatroom.messages.order("messages.created_at asc")
       render "chatrooms/show", status: :unprocessable_entity
     end
   end

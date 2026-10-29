@@ -7,7 +7,7 @@ require "rails/test_help"
 # network and make the suite slow, flaky and unusable in CI.
 Geocoder.configure(lookup: :test, ip_lookup: :test)
 Geocoder::Lookup::Test.set_default_stub(
-  [{ "coordinates" => [42.3601, -71.0589], "address" => "Boston, MA, USA" }]
+  [ { "coordinates" => [ 42.3601, -71.0589 ], "address" => "Boston, MA, USA" } ]
 )
 
 class ActiveSupport::TestCase

@@ -22,6 +22,6 @@ class PartnerTest < ActiveSupport::TestCase
   end
 
   test "users returns the pair in requester, requestee order" do
-    assert_equal [users(:alice), users(:bob)], partners(:alice_bob).users
+    assert_equal [ users(:alice), users(:bob) ], partners(:alice_bob).users
   end
 end

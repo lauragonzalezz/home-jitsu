@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     else
       @users = @users.where.not(latitude: nil)
       unless current_user.latitude.nil?
-        @users = @users.sort_by { |user| user.distance_to([current_user.latitude, current_user.longitude]).round(1) }
+        @users = @users.sort_by { |user| user.distance_to([ current_user.latitude, current_user.longitude ]).round(1) }
       end
     end
 
@@ -99,7 +99,7 @@ class UsersController < ApplicationController
   end
 
   def get_name(user1, user2)
-    user = [user1.id, user2.id].sort
+    user = [ user1.id, user2.id ].sort
     "private_#{user[0]}_#{user[1]}_"
   end
 end

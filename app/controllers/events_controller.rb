@@ -17,7 +17,7 @@ class EventsController < ApplicationController
     else
       @events = @events.where.not(latitude: nil)
       unless current_user.latitude.nil?
-        @events = @events.sort_by { |event| event.distance_to([current_user.latitude, current_user.longitude]).round(1) }
+        @events = @events.sort_by { |event| event.distance_to([ current_user.latitude, current_user.longitude ]).round(1) }
       end
     end
 
@@ -34,7 +34,7 @@ class EventsController < ApplicationController
       {
         lat: event.latitude,
         lng: event.longitude,
-        info_window: render_to_string(partial: "info_window", locals: {event: event})
+        info_window: render_to_string(partial: "info_window", locals: { event: event })
       }
     end
   end
@@ -44,7 +44,7 @@ class EventsController < ApplicationController
     @confirmed_guests = Guest.select { |guest| guest.event_id == @event.id && guest.status == "Accept" }
     @pending_guests = Guest.select { |guest| guest.event_id == @event.id && guest.status == "Pending" }
     @invited_guests = Guest.select { |guest| guest.event_id == @event.id && guest.status == "Invited" }
-    @include_guest = [@event.host_id]
+    @include_guest = [ @event.host_id ]
     @confirmed_guests.each { |guest| @include_guest << guest.guest_id }
     @pending_guests.each { |guest| @include_guest << guest.guest_id }
     @invited_guests.each { |guest| @include_guest << guest.guest_id }
@@ -66,8 +66,8 @@ class EventsController < ApplicationController
     @joined_events = Guest.select { |guest| guest.guest_id == current_user.id && guest.status == "Accept" }
     @invited_events = Guest.select { |guest| guest.guest_id == current_user.id && guest.status == "Invited" }
     @events = Event.select { |event| event.host_id == current_user.id }
-    upcoming, past = @events.sort_by(&:date).partition{ |a| a.date.future? }
-    @sorted = [[*upcoming], [*past.reverse]]
+    upcoming, past = @events.sort_by(&:date).partition { |a| a.date.future? }
+    @sorted = [ [ *upcoming ], [ *past.reverse ] ]
   end
 
   def new

@@ -14,7 +14,7 @@ class DropLegacyNotificationsTable < ActiveRecord::Migration[7.1]
       t.jsonb :params
       t.datetime :read_at
       t.timestamps
-      t.index [:read_at], name: "index_notifications_on_read_at"
+      t.index [ :read_at ], name: "index_notifications_on_read_at"
       t.index %i[recipient_type recipient_id], name: "index_notifications_on_recipient"
     end
   end
