@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  BELTS = ["White", "Blue", "Purple", "Brown", "Black", "None"].freeze
-  GENDERS = ["Male", "Female", "Other"].freeze
-  TRAINING_STYLES = ["Gi", "No-gi", "Both"].freeze
+  BELTS = [ "White", "Blue", "Purple", "Brown", "Black", "None" ].freeze
+  GENDERS = [ "Male", "Female", "Other" ].freeze
+  TRAINING_STYLES = [ "Gi", "No-gi", "Both" ].freeze
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
@@ -23,19 +23,19 @@ class User < ApplicationRecord
   validates :training_style, presence: true
   validates :training_style, inclusion: { in: TRAINING_STYLES }
 
-  has_many :written_reviews, class_name: 'Review', foreign_key: 'writer_id'
-  has_many :reviews, class_name: 'Review', foreign_key: 'user_id'
-  has_many :requested_partners, class_name: 'Partner', foreign_key: 'requester_id'
-  has_many :partners, class_name: 'Partner', foreign_key: 'requestee_id'
-  has_many :hosted_events, class_name: 'Event', foreign_key: 'host_id'
-  has_many :events, class_name: 'Guest', foreign_key: 'guest_id'
+  has_many :written_reviews, class_name: "Review", foreign_key: "writer_id"
+  has_many :reviews, class_name: "Review", foreign_key: "user_id"
+  has_many :requested_partners, class_name: "Partner", foreign_key: "requester_id"
+  has_many :partners, class_name: "Partner", foreign_key: "requestee_id"
+  has_many :hosted_events, class_name: "Event", foreign_key: "host_id"
+  has_many :events, class_name: "Guest", foreign_key: "guest_id"
   has_one_attached :photo
 
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
   def distance_to(geolocation)
-    Geocoder::Calculations.distance_between(geolocation, [latitude, longitude])
+    Geocoder::Calculations.distance_between(geolocation, [ latitude, longitude ])
   end
 
   def partnerships
@@ -53,10 +53,10 @@ class User < ApplicationRecord
   has_many :notifications, as: :recipient, dependent: :destroy, class_name: "Noticed::Notification"
 
   def unread_notifications
-    notifications.unread.reject { |notification| notification.params[:type] == 'message' }
+    notifications.unread.reject { |notification| notification.params[:type] == "message" }
   end
 
   def unread_messages
-    notifications.unread.select { |notification| notification.params[:type] == 'message' }
+    notifications.unread.select { |notification| notification.params[:type] == "message" }
   end
 end

@@ -44,6 +44,6 @@ class EventTest < ActiveSupport::TestCase
   end
 
   test "distance_to measures from the event's coordinates" do
-    assert_equal 0, events(:open_mat).distance_to([events(:open_mat).latitude, events(:open_mat).longitude])
+    assert_equal 0, events(:open_mat).distance_to([ events(:open_mat).latitude, events(:open_mat).longitude ])
   end
 end

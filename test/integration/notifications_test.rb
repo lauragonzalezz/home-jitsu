@@ -21,7 +21,7 @@ class NotificationsTest < ActionDispatch::IntegrationTest
   test "my_messages renders a chatroom with messages and an unread notification" do
     alice = users(:alice)
     bob = users(:bob)
-    chatroom = Chatroom.create!(name: "private_#{[alice.id, bob.id].min}_#{[alice.id, bob.id].max}_")
+    chatroom = Chatroom.create!(name: "private_#{[ alice.id, bob.id ].min}_#{[ alice.id, bob.id ].max}_")
     chatroom.messages.create!(user: bob, content: "oss")
     # Exercises _chat.html.erb's chat.notifications_as_chatroom lookup.
     MessageNotification.with(record: chatroom, type: "message").deliver(alice)

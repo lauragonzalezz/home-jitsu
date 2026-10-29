@@ -12,6 +12,6 @@ class Message < ApplicationRecord
     room = self.chatroom.name
     ids = room.scan(/\d+/).map(&:to_i)
     users = ids.map { |id| User.find(id) }
-    return users
+    users
   end
 end

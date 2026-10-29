@@ -18,6 +18,6 @@ class MessageTest < ActiveSupport::TestCase
   end
 
   test "joined_users returns the users encoded in the chatroom name" do
-    assert_equal [@alice, @bob], @message.joined_users
+    assert_equal [ @alice, @bob ], @message.joined_users
   end
 end

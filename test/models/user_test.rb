@@ -70,10 +70,10 @@ class UserTest < ActiveSupport::TestCase
 
   test "friends returns the other user of each partnership, deduplicated" do
     friends = users(:alice).friends
-    assert_equal [users(:bob), users(:carol)].sort_by(&:id), friends.sort_by(&:id)
+    assert_equal [ users(:bob), users(:carol) ].sort_by(&:id), friends.sort_by(&:id)
   end
 
   test "distance_to measures from the user's coordinates" do
-    assert_equal 0, users(:alice).distance_to([users(:alice).latitude, users(:alice).longitude])
+    assert_equal 0, users(:alice).distance_to([ users(:alice).latitude, users(:alice).longitude ])
   end
 end
