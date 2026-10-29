@@ -1,7 +1,15 @@
 Geocoder.configure(
   # Geocoding options
-  # timeout: 3,                 # geocoding service timeout (secs)
-  # lookup: :nominatim,         # name of geocoding service (symbol)
+  timeout: 5, # geocoding service timeout (secs)
+  lookup: :nominatim, # name of geocoding service (symbol)
+  use_https: true, # Nominatim supports HTTPS; avoid a plaintext round-trip
+
+  # Nominatim's usage policy REQUIRES a valid User-Agent that identifies the
+  # app. Without it requests are rejected (HTTP 403) and geocoder silently
+  # swallows the error, leaving latitude/longitude nil on every record. That
+  # was why proximity search (partners/events) returned nothing.
+  http_headers: { "User-Agent" => "Home-Jitsu (https://github.com/lauragonzalezz/home-jitsu)" },
+
   # ip_lookup: :ipinfo_io,      # name of IP address geocoding service (symbol)
   # language: :en,              # ISO-639 language code
   # use_https: false,           # use HTTPS for lookup requests? (if supported)

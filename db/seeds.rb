@@ -708,3 +708,20 @@ Message.create!(
 )
 
 p "Created real chatrooms and messages"
+
+# Geocoding happens in an after_validation callback, but Nominatim's usage
+# policy caps us at ~1 request/second. Saving every user and event back to back
+# trips that limit and leaves most records without coordinates, which makes the
+# proximity search (partners/events near you) come back empty. Backfill any
+# record that slipped through, throttled to stay within the policy.
+p "Backfilling coordinates for records Nominatim rate-limited..."
+[ User, Event ].each do |model|
+  model.where(latitude: nil).find_each do |record|
+    record.geocode
+    if record.latitude
+      record.save!(validate: false)
+      sleep 1.1
+    end
+  end
+end
+p "Coordinates backfilled."

@@ -2,14 +2,14 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
   def index
-    @users = User.all
-    policy_scope(@users)
+    @users = policy_scope(User)
 
     if params[:query].present?
-      geocoded_search_results = Geocoder.search(params[:query])
-      top_result = geocoded_search_results.first
-      unless top_result.nil?
-        @users = @users.near(top_result.address, 5)
+      top_result = Geocoder.search(params[:query]).first
+      if top_result
+        # Use the coordinates we already resolved instead of handing the address
+        # string back to .near, which would geocode it a second time.
+        @users = @users.near(top_result.coordinates, 5)
       else
         @users = []
       end
