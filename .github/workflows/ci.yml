@@ -6,6 +6,23 @@ on:
   pull_request:
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Reads .ruby-version; bundler-cache runs bundle install and caches gems.
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Lint with RuboCop
+        # -f github annotates offending lines inline on the PR diff.
+        run: bin/rubocop -f github
+
   test:
     runs-on: ubuntu-latest
 
