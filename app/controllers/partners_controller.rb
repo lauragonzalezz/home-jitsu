@@ -47,8 +47,7 @@ class PartnersController < ApplicationController
 
   def set_partner
     @other_user = User.find(params[:id])
-    @partner = Partner.find_by(requestee_id: @other_user.id, requester_id: current_user.id) ||
-               Partner.find_by(requester_id: @other_user.id, requestee_id: current_user.id)
+    @partner = Partner.between(current_user, @other_user).first
   end
 
   def partner_params

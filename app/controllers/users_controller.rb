@@ -89,8 +89,7 @@ class UsersController < ApplicationController
 
   def set_partner
     set_user
-    @partner = Partner.find_by(requestee_id: @user.id, requester_id: current_user.id) ||
-               Partner.find_by(requester_id: @user.id, requestee_id: current_user.id)
+    @partner = Partner.between(current_user, @user).first
   end
 
   def user_params
