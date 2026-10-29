@@ -94,11 +94,22 @@ Run Rails commands inside the running `app` container:
 | Run migrations | `docker compose exec app bin/rails db:migrate` |
 | Run the test suite | `docker compose exec app bin/rails test` |
 | Reset the database | `docker compose exec app bin/rails db:reset` |
+| Lint with RuboCop | `docker compose exec app bin/rubocop` |
 
 If the stack isn't running, use a throwaway container instead:
 
 ```sh
 docker compose run --rm app bin/rails <command>
+```
+
+### Linting
+
+Style is enforced with [`rubocop-rails-omakase`](https://github.com/rails/rubocop-rails-omakase),
+the Rails team's shared RuboCop config:
+
+```sh
+docker compose exec app bin/rubocop        # report offenses
+docker compose exec app bin/rubocop -a     # autocorrect the safe ones
 ```
 
 ### Port already in use?
