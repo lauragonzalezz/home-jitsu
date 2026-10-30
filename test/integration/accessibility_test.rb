@@ -60,4 +60,39 @@ class AccessibilityTest < ActionDispatch::IntegrationTest
     assert_select "button[aria-label=?]", "Accept #{users(:bob).first_name}"
     assert_select "button[aria-label=?]", "Reject #{users(:bob).first_name}"
   end
+
+  test "the advanced partner search is a real toggle button with labelled fields" do
+    sign_in users(:alice)
+    get users_path
+    assert_response :success
+
+    # The toggle is a real <button> with an accessible name (aria-expanded /
+    # aria-controls are added by the Stimulus controller at runtime).
+    assert_select "button[data-advanced-search-target=toggler][aria-label=?]", "Advanced search"
+
+    # Every advanced field carries a real (visually-hidden) label with a unique id.
+    assert_select "label.visually-hidden[for=?]", "advanced-minweight"
+    assert_select "input#advanced-minweight"
+    assert_select "label.visually-hidden[for=?]", "advanced-belt"
+    assert_select "select#advanced-belt"
+  end
+
+  test "the back bar is a real button wired to history, not a javascript: link" do
+    sign_in users(:alice)
+    get new_event_path
+    assert_response :success
+
+    assert_select "button.back-bar-back[data-controller=history-back][aria-label=?]", "Go back"
+    assert_select "a[href=?]", "javascript:history.back()", count: 0
+  end
+
+  test "the attendee see-all control is a real button" do
+    # open_mat has carol_accepted as a confirmed guest, so the list renders.
+    sign_in users(:alice)
+    get event_path(events(:open_mat))
+    assert_response :success
+
+    assert_select "button.link-button[data-attendee-list-target=link]", text: "See all"
+    assert_select "#attendee-list[data-attendee-list-target=list]"
+  end
 end

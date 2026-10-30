@@ -29,6 +29,8 @@ form.button_to {
   z-index: 8;
   padding: 4px;
   background: $light-purple;
+  border: 0;
+  cursor: pointer;
   border-radius: 15px;
   line-height: 22px;
   width: 30px;

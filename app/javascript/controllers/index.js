@@ -16,6 +16,9 @@ application.register("chatroom-subscription", ChatroomSubscriptionController)
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
 
+import HistoryBackController from "./history_back_controller"
+application.register("history-back", HistoryBackController)
+
 import MapController from "./map_controller"
 application.register("map", MapController)
 

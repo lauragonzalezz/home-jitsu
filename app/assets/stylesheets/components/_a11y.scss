@@ -13,6 +13,25 @@
   outline: none;
 }
 
+// Buttons that replaced anchors in the a11y pass (real <button>s for actions
+// that aren't navigation: the back bar and the attendee "See all" toggle).
+// Strip the native button chrome so they look the same as the old links.
+.back-bar-back,
+.link-button {
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.back-bar-back {
+  display: block;
+}
+
+.link-button {
+  color: $deep-purple;
+}
+
 // The skip link stays hidden until focused (Bootstrap .visually-hidden-focusable),
 // then anchors to the top-left so keyboard users land on it first.
 .skip-link:focus {

@@ -8,7 +8,7 @@
         class: "form-control search-icon",
         placeholder: "Find partners close to this address"
       %>
-      <a href="#" class="purple-circle-button" data-advanced-search-target="toggler"><%= image_tag "icons/sliders.svg", alt: "Advanced search", width: 20 %></a>
+      <button type="button" class="purple-circle-button" data-advanced-search-target="toggler" aria-label="Advanced search"><%= image_tag "icons/sliders.svg", alt: "", width: 20 %></button>
     <% end %>
   </div>
 
@@ -19,29 +19,37 @@
       <div class="component-container">
         <div class="form-box bg-white new-review">
           <%= form_with url: users_path, method: :get do |form| %>
+            <%= label_tag "advanced-query", "Find partners close to this address", class: "visually-hidden" %>
             <%= text_field_tag :query,
               params[:query],
+              id: "advanced-query",
               class: "form-control mb-3",
               placeholder: "Close to this address"
             %>
 
+            <%= label_tag "advanced-name", "Name", class: "visually-hidden" %>
             <%= text_field_tag :name,
               params[:name],
+              id: "advanced-name",
               class: "form-control mb-3",
               placeholder: "Name"
             %>
 
             <div class="row">
               <div class="col">
+                <%= label_tag "advanced-minweight", "Minimum weight (kg)", class: "visually-hidden" %>
                 <%= text_field_tag :minweight,
                   params[:minweight],
+                  id: "advanced-minweight",
                   class: "form-control mb-3",
                   placeholder: "Min. Weight (kg)"
                 %>
               </div>
               <div class="col">
+                <%= label_tag "advanced-maxweight", "Maximum weight (kg)", class: "visually-hidden" %>
                 <%= text_field_tag :maxweight,
                   params[:maxweight],
+                  id: "advanced-maxweight",
                   class: "form-control mb-3",
                   placeholder: "Max. Weight (kg)"
                 %>
@@ -50,15 +58,19 @@
 
             <div class="row">
               <div class="col">
+                <%= label_tag "advanced-minheight", "Minimum height (cm)", class: "visually-hidden" %>
                 <%= text_field_tag :minheight,
                   params[:minheight],
+                  id: "advanced-minheight",
                   class: "form-control mb-3",
                   placeholder: "Min. Height (cm)"
                 %>
               </div>
               <div class="col">
+                <%= label_tag "advanced-maxheight", "Maximum height (cm)", class: "visually-hidden" %>
                 <%= text_field_tag :maxheight,
                   params[:maxheight],
+                  id: "advanced-maxheight",
                   class: "form-control mb-3",
                   placeholder: "Max. Height (cm)"
                 %>
@@ -67,15 +79,19 @@
 
             <div class="row">
               <div class="col">
+                <%= label_tag "advanced-belt", "Belt", class: "visually-hidden" %>
                 <%= select_tag :belt,
                   options_for_select(User::BELTS, params[:belt]),
+                  id: "advanced-belt",
                   class: "form-select mb-3",
                   prompt: "Belt"
                 %>
               </div>
               <div class="col">
+                <%= label_tag "advanced-training-style", "Training style", class: "visually-hidden" %>
                 <%= select_tag :training_style,
                   options_for_select(User::TRAINING_STYLES, params[:training_style]),
+                  id: "advanced-training-style",
                   class: "form-select mb-3",
                   prompt: "Training style"
                 %>
@@ -84,15 +100,19 @@
 
             <div class="row">
               <div class="col">
+                <%= label_tag "advanced-minyears", "Minimum years of experience", class: "visually-hidden" %>
                 <%= text_field_tag :minyears,
                   params[:minyears],
+                  id: "advanced-minyears",
                   class: "form-control",
                   placeholder: "Min. Years"
                 %>
               </div>
               <div class="col">
+                <%= label_tag "advanced-maxyears", "Maximum years of experience", class: "visually-hidden" %>
                 <%= text_field_tag :maxyears,
                   params[:maxyears],
+                  id: "advanced-maxyears",
                   class: "form-control",
                   placeholder: "Max. Years"
                 %>
@@ -100,8 +120,10 @@
             </div>
             <div class="form-text mb-3">Years of experience</div>
 
+            <%= label_tag "advanced-gender", "Gender", class: "visually-hidden" %>
             <%= select_tag :gender,
               options_for_select(User::GENDERS, params[:gender]),
+              id: "advanced-gender",
               class: "form-select mb-3",
               prompt: "Gender"
             %>

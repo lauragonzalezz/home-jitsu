@@ -8,7 +8,7 @@
         class: "form-control search-icon",
         placeholder: "Find events close to this address"
       %>
-      <a href="#" class="purple-circle-button" data-advanced-search-target="toggler"><%= image_tag "icons/sliders.svg", alt: "Advanced search", width: 20 %></a>
+      <button type="button" class="purple-circle-button" data-advanced-search-target="toggler" aria-label="Advanced search"><%= image_tag "icons/sliders.svg", alt: "", width: 20 %></button>
     <% end %>
   </div>
 
@@ -19,20 +19,26 @@
       <div class="component-container">
         <div class="form-box bg-white new-review">
           <%= form_with url: events_path, method: :get do |form| %>
+            <%= label_tag "advanced-query", "Find events close to this address", class: "visually-hidden" %>
             <%= text_field_tag :query,
               params[:query],
+              id: "advanced-query",
               class: "form-control mb-3",
               placeholder: "Close to this address"
             %>
 
+            <%= label_tag "advanced-name", "Host name", class: "visually-hidden" %>
             <%= text_field_tag :name,
               params[:name],
+              id: "advanced-name",
               class: "form-control mb-3",
               placeholder: "Host name"
             %>
 
+            <%= label_tag "advanced-date", "Event date", class: "visually-hidden" %>
             <%= date_field_tag "date",
               params[:date],
+              id: "advanced-date",
               class: "form-control",
               placeholder: "Date"
             %>
