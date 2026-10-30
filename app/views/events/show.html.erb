@@ -61,7 +61,7 @@
     <div class="attendee-list" data-controller="attendee-list">
       <div class="d-flex justify-content-between align-items-center">
         <h2><%= pluralize( @confirmed_guests.count, 'Attendee') %></h2>
-        <button type="button" class="link-button fw-bold" data-attendee-list-target="link">See all</button>
+        <button type="button" class="link-button fw-bold" data-attendee-list-target="link" data-action="attendee-list#toggle">See all</button>
       </div>
       <div class="component-container" id="attendee-list" data-attendee-list-target="list">
         <% @confirmed_guests.each do |guest| %>

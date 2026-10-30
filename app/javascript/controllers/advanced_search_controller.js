@@ -8,27 +8,26 @@ export default class extends Controller {
   static targets = ["toggler", "search"];
 
   connect() {
+    // open is wired declaratively (data-action="advanced-search#open").
+    // close and onKeydown are wired by hand: close fires on the shared back-bar
+    // link (which shouldn't know about this controller), and onKeydown is a
+    // document-level Escape we only want listening while the panel is open.
     this.closeButton = this.searchTarget.querySelector(".back-bar a");
-
-    this.open = this.open.bind(this);
     this.close = this.close.bind(this);
     this.onKeydown = this.onKeydown.bind(this);
 
     this.togglerTarget.setAttribute("aria-controls", this.searchTarget.id);
     this.togglerTarget.setAttribute("aria-expanded", "false");
 
-    this.togglerTarget.addEventListener("click", this.open);
     this.closeButton.addEventListener("click", this.close);
   }
 
   disconnect() {
-    this.togglerTarget.removeEventListener("click", this.open);
     this.closeButton.removeEventListener("click", this.close);
     document.removeEventListener("keydown", this.onKeydown);
   }
 
-  open(event) {
-    event.preventDefault();
+  open() {
     this.searchTarget.classList.add("d-block");
     this.togglerTarget.setAttribute("aria-expanded", "true");
     document.addEventListener("keydown", this.onKeydown);

@@ -8,9 +8,8 @@ export default class extends Controller {
   static targets = ["link", "list"];
 
   connect() {
-    const count = this.listTarget.childElementCount;
-
-    if (count <= 2) {
+    // Short lists need no toggle: hide the control and leave the list expanded.
+    if (this.listTarget.childElementCount <= 2) {
       this.linkTarget.style.display = "none";
       return;
     }
@@ -18,17 +17,10 @@ export default class extends Controller {
     this.listTarget.classList.add("hide-attendees");
     this.linkTarget.setAttribute("aria-controls", this.listTarget.id);
     this.linkTarget.setAttribute("aria-expanded", "false");
-
-    this.toggle = this.toggle.bind(this);
-    this.linkTarget.addEventListener("click", this.toggle);
   }
 
-  disconnect() {
-    this.linkTarget.removeEventListener("click", this.toggle);
-  }
-
-  toggle(event) {
-    event.preventDefault();
+  // Wired declaratively (data-action="attendee-list#toggle").
+  toggle() {
     // classList.toggle returns true when the class is now present (collapsed).
     const collapsed = this.listTarget.classList.toggle("hide-attendees");
     this.linkTarget.textContent = collapsed ? "See all" : "Hide";

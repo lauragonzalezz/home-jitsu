@@ -66,9 +66,10 @@ class AccessibilityTest < ActionDispatch::IntegrationTest
     get users_path
     assert_response :success
 
-    # The toggle is a real <button> with an accessible name (aria-expanded /
-    # aria-controls are added by the Stimulus controller at runtime).
+    # The toggle is a real <button> with an accessible name, wired to the
+    # controller declaratively (aria-expanded / aria-controls are added at runtime).
     assert_select "button[data-advanced-search-target=toggler][aria-label=?]", "Advanced search"
+    assert_select "button[data-advanced-search-target=toggler][data-action=?]", "advanced-search#open"
 
     # Every advanced field carries a real (visually-hidden) label with a unique id.
     assert_select "label.visually-hidden[for=?]", "advanced-minweight"
@@ -92,6 +93,7 @@ class AccessibilityTest < ActionDispatch::IntegrationTest
     get event_path(events(:open_mat))
     assert_response :success
 
+    assert_select "button.link-button[data-attendee-list-target=link][data-action=?]", "attendee-list#toggle"
     assert_select "button.link-button[data-attendee-list-target=link]", text: "See all"
     assert_select "#attendee-list[data-attendee-list-target=list]"
   end
