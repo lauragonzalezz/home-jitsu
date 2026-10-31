@@ -12,7 +12,9 @@ class Event < ApplicationRecord
   validates :description, presence: true
 
   geocoded_by :address
-  after_validation :geocode, if: :will_save_change_to_address?
+  # Geocode only when the address changed and the form didn't already supply
+  # coordinates (the autocomplete fills them in; typing by hand clears them).
+  after_validation :geocode, if: -> { will_save_change_to_address? && (latitude.blank? || longitude.blank?) }
 
   def distance_to(geolocation)
     Geocoder::Calculations.distance_between(geolocation, [ latitude, longitude ])

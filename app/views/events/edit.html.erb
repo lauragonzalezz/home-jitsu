@@ -2,12 +2,14 @@
 <h1>Edit event</h1>
 <div class="component-container">
   <div class="form-box bg-white new-review">
-    <%= simple_form_for(@event) do |f| %>
+    <%= simple_form_for(@event, data: { controller: "address-autocomplete", address_autocomplete_token_value: ENV["MAPBOX_API_KEY"] }) do |f| %>
       <label class="form-label" for="event_date">Date *</label>
       <%= f.datetime_field :date, as: :datetime, html5: true, min: DateTime.now, class: "form-control mb-3" %>
       <%= f.input :title %>
       <%= f.input :address,
-                  hint: "If it's not a real address it won't show up on the map or in the search!" %>
+                  hint: "Start typing and pick the address from the list",
+                  input_html: { autocomplete: "off", data: { address_autocomplete_target: "input", action: "input->address-autocomplete#search keydown->address-autocomplete#onKeydown" } } %>
+      <%= render "shared/geocoding_fields", field: f %>
       <%= f.input :description %>
       <%= f.input :photo, as: :file %>
       <%= f.submit class: "btn btn-primary d-block w-100" %>

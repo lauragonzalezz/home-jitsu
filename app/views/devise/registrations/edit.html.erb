@@ -4,7 +4,7 @@
 
 <div class="component-container">
   <div class="form-box bg-white">
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: {turbo: false}) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: { turbo: false, controller: "address-autocomplete", address_autocomplete_token_value: ENV["MAPBOX_API_KEY"] }) do |f| %>
       <%= f.error_notification %>
 
       <div class="form-inputs">
@@ -23,9 +23,10 @@
                     autofocus: true,
                     input_html: { autocomplete: "last_name" }%>
         <%= f.input :address,
-                    hint: "This won't be public! Just make sure it's a real address or you will miss a lot of our features",
+                    hint: "Start typing and pick your address from the list",
                     required: true,
-                    input_html: { autocomplete: "address" } %>
+                    input_html: { autocomplete: "off", data: { address_autocomplete_target: "input", action: "input->address-autocomplete#search keydown->address-autocomplete#onKeydown" } } %>
+        <%= render "shared/geocoding_fields", field: f %>
         <%= f.input :gender, collection: User::GENDERS,
                     required: true,
                     input_html: { autocomplete: "gender" } %>

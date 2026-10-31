@@ -14,12 +14,13 @@
               placeholder: "Last name *",
               input_html: { autocomplete: "family-name" }%>
   <%= field.input :address,
-              hint: "This won't be public! Just make sure it's a real address or you will miss a lot of our features",
+              hint: "Start typing and pick your address from the list",
               required: true,
               label: "Address",
               label_html: { class: "visually-hidden" },
               placeholder: "Address *",
-              input_html: { autocomplete: "street-address" } %>
+              input_html: { autocomplete: "off", data: { address_autocomplete_target: "input", action: "input->address-autocomplete#search keydown->address-autocomplete#onKeydown" } } %>
+  <%= render "shared/geocoding_fields", field: field %>
   <%= field.input :gender, collection: User::GENDERS,
               required: true,
               label: "Gender",

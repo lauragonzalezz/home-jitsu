@@ -94,7 +94,8 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :weight, :height, :belt,
-                                 :years_of_experience, :address, :description, :gender, :photo)
+                                 :years_of_experience, :address, :latitude, :longitude,
+                                 :description, :gender, :photo)
   end
 
   def get_name(user1, user2)
