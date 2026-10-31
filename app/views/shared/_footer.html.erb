@@ -1,14 +1,14 @@
-<footer class="footer">
+<footer class="footer" data-controller="notifications">
   <nav class="container" aria-label="Primary">
     <div class="d-flex align-items-center justify-content-between">
       <% if user_signed_in? %>
         <%= link_to root_path, class: "home" do %>Home<% end %>
         <%= link_to partners_path, class: "partners" do %>Partners<% end %>
         <%= link_to my_events_path, class: "events" do %>Events<% end %>
-        <%= link_to my_messages_path, class: "messages #{'new' unless current_user.unread_messages.empty?}" do %>
+        <%= link_to my_messages_path, class: "messages #{'new' unless current_user.unread_messages.empty?}", data: { notifications_target: "messages" } do %>
           Messages<% unless current_user.unread_messages.empty? %><span class="visually-hidden"> (unread)</span><% end %>
         <% end %>
-        <%= link_to notifications_path, class: "notifications #{'new' unless current_user.unread_notifications.empty?}" do %>
+        <%= link_to notifications_path, class: "notifications #{'new' unless current_user.unread_notifications.empty?}", data: { notifications_target: "notifications" } do %>
           Notifications<% unless current_user.unread_notifications.empty? %><span class="visually-hidden"> (unread)</span><% end %>
         <% end %>
       <% else %>
