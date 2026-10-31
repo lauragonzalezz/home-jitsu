@@ -31,6 +31,17 @@ class ApplicationController < ActionController::Base
 
   private
 
+  # Where to center an address search: the coordinates the address autocomplete
+  # supplied, or a geocode of the typed query as a fallback. nil when neither
+  # resolves. Shared by the users and events index searches.
+  def search_coordinates
+    if params[:latitude].present? && params[:longitude].present?
+      [ params[:latitude].to_f, params[:longitude].to_f ]
+    else
+      Geocoder.search(params[:query]).first&.coordinates
+    end
+  end
+
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end

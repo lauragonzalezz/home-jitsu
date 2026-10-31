@@ -7,10 +7,9 @@ class EventsController < ApplicationController
     policy_scope(@events)
 
     if params[:query].present?
-      geocoded_search_results = Geocoder.search(params[:query])
-      top_result = geocoded_search_results.first
-      unless top_result.nil?
-        @events = @events.near(top_result.address, 5)
+      coordinates = search_coordinates
+      if coordinates
+        @events = @events.near(coordinates, 5)
       else
         @events = []
       end

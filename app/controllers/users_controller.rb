@@ -5,11 +5,9 @@ class UsersController < ApplicationController
     @users = policy_scope(User)
 
     if params[:query].present?
-      top_result = Geocoder.search(params[:query]).first
-      if top_result
-        # Use the coordinates we already resolved instead of handing the address
-        # string back to .near, which would geocode it a second time.
-        @users = @users.near(top_result.coordinates, 5)
+      coordinates = search_coordinates
+      if coordinates
+        @users = @users.near(coordinates, 5)
       else
         @users = []
       end
