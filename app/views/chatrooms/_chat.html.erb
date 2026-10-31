@@ -24,7 +24,10 @@ if last_message
       </div>
       <div>
         <small class="text-nowrap"><%= last_message.created_at.strftime("%b %e") %></small>
-        <%= raw("<span class='purple-circle'></span>") unless chat.notifications_as_chatroom.where(recipient: current_user, read_at: nil).empty? %>
+        <% unless chat.notifications_as_chatroom.where(recipient: current_user, read_at: nil).empty? %>
+          <span class="purple-circle" aria-hidden="true"></span>
+          <span class="visually-hidden">Unread messages</span>
+        <% end %>
       </div>
     </div>
   <% end %>
