@@ -22,6 +22,9 @@ application.register("history-back", HistoryBackController)
 import MapController from "./map_controller"
 application.register("map", MapController)
 
+import NotificationsController from "./notifications_controller"
+application.register("notifications", NotificationsController)
+
 import StarRatingController from "./star_rating_controller"
 application.register("star-rating", StarRatingController)
 
