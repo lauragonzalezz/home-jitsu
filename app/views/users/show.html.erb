@@ -15,7 +15,7 @@
 <div class="component-container">
   <div class="form-box bg-white">
     <div class="d-flex justify-content-between mb-3">
-      <h2 class="m-0"><%=@user.first_name%> <%=@user.last_name%></h2>
+      <h1 class="h2 m-0"><%=@user.first_name%> <%=@user.last_name%></h1>
       <div class="rating">
         <% if @user.reviews.exists? %>
           <%= render "shared/stars", average_rating: @average_rating %>

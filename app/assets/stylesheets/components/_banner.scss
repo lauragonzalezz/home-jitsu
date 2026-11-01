@@ -1,4 +1,7 @@
 .banner {
+  // Dark fill behind the photo so the white heading stays legible even when
+  // there's no image (or while it loads).
+  background-color: $dark-blue;
   background-size: cover;
   background-position: center;
   padding: 40px 15px;

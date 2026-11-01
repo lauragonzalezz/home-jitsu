@@ -11,8 +11,8 @@ form.button_to {
 .form-control, .form-select {
   border: 1px solid $light-grey;
   line-height: 20px;
-  padding: 9px 10px;
-  height: 40px;
+  padding: 11px 10px;
+  height: 44px;
 }
 .form-control.search-icon {
   padding-left: 30px;
@@ -22,19 +22,20 @@ form.button_to {
   background-size: 15px;
 }
 .purple-circle-button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 3px;
+  top: 0;
   z-index: 8;
-  padding: 4px;
   background: $light-purple;
   border: 0;
   cursor: pointer;
-  border-radius: 15px;
-  line-height: 22px;
-  width: 30px;
-  text-align: center;
+  border-radius: 50%;
+  // 44px tap target (WCAG target size), centered in the 44px input.
+  width: 44px;
+  height: 44px;
 }
 .bg-light-grey {
   background: $light-grey;

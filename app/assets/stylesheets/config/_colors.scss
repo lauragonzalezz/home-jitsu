@@ -7,9 +7,10 @@ $blue: #2E5DD4;
 $dark-blue: #364D5E;
 $brown: #994D16;
 $deep-purple: #5547AA;
-$main-purple: #8F5DD0;
+$main-purple: #8756C8; // darkened from #8F5DD0 so white text clears AA (~5:1)
 $light-purple: #D3CEE9;
 $light-grey: #E0E7EC;
+$mid-grey: #7F8A94; // for empty stars: ~3:1 on the light body, unlike $light-grey
 $lighter-grey: #F3F5F8;
 $white: #FFFFFF;
 $yellow: #FEB702;

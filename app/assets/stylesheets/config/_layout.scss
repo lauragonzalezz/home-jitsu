@@ -1,0 +1,5 @@
+// Heights of the fixed navbar and footer. Pages that size around them (chat
+// height, flash alert offset) derive from these so the numbers stay in sync.
+// (The remaining hard-coded 50px in navbar/search/footer are a separate cleanup.)
+$navbar-height: 50px;
+$footer-height: 50px;
