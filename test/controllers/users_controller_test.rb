@@ -69,6 +69,17 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     refute_partner_listed @carol
   end
 
+  test "address query centers on supplied coordinates, not a geocode of the text" do
+    # Far-away coordinates (Montreal). If the search uses them, no Boston fixtures
+    # fall within range; if it ignored them and geocoded "Boston, MA", the stub
+    # would resolve to Boston and list everyone. Emptiness proves the coords win.
+    get users_path(query: "Boston, MA", latitude: 45.5308, longitude: -73.6176)
+    assert_response :success
+
+    refute_partner_listed @bob
+    refute_partner_listed @carol
+  end
+
   test "index still renders when the current user has no coordinates" do
     @alice.update_columns(latitude: nil, longitude: nil)
 

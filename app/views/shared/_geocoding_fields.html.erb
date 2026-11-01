@@ -1,0 +1,5 @@
+<%# Hidden coordinates filled by the address autocomplete controller when a
+    suggestion is picked. Left blank (and cleared on manual typing) so the model
+    geocodes the typed address itself instead of trusting stale coordinates. %>
+<%= field.hidden_field :latitude, data: { address_autocomplete_target: "latitude" } %>
+<%= field.hidden_field :longitude, data: { address_autocomplete_target: "longitude" } %>

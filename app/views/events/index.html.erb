@@ -1,13 +1,17 @@
 <div class="component-container" data-controller="advanced-search">
   <div class="form-box bg-light-grey">
     <%# TODO: Logic for search and advanced search %>
-   <%= form_with url: events_path, method: :get, class: "d-flex" do |form| %>
+   <%= form_with url: events_path, method: :get, class: "d-flex", data: { controller: "address-autocomplete", address_autocomplete_token_value: ENV["MAPBOX_API_KEY"] } do |form| %>
       <%= label_tag :query, "Find events close to this address", class: "visually-hidden" %>
       <%= text_field_tag :query,
         params[:query],
         class: "form-control search-icon",
+        autocomplete: "off",
+        data: { address_autocomplete_target: "input", action: "input->address-autocomplete#search keydown->address-autocomplete#onKeydown" },
         placeholder: "Find events close to this address"
       %>
+      <%= hidden_field_tag :latitude, params[:latitude], data: { address_autocomplete_target: "latitude" } %>
+      <%= hidden_field_tag :longitude, params[:longitude], data: { address_autocomplete_target: "longitude" } %>
       <button type="button" class="purple-circle-button" data-advanced-search-target="toggler" data-action="advanced-search#open" aria-label="Advanced search"><%= image_tag "icons/sliders.svg", alt: "", width: 20 %></button>
     <% end %>
   </div>
@@ -18,14 +22,18 @@
       <h2>Find an event</h2>
       <div class="component-container">
         <div class="form-box bg-white new-review">
-          <%= form_with url: events_path, method: :get do |form| %>
+          <%= form_with url: events_path, method: :get, data: { controller: "address-autocomplete", address_autocomplete_token_value: ENV["MAPBOX_API_KEY"] } do |form| %>
             <%= label_tag "advanced-query", "Find events close to this address", class: "visually-hidden" %>
             <%= text_field_tag :query,
               params[:query],
               id: "advanced-query",
               class: "form-control mb-3",
+              autocomplete: "off",
+              data: { address_autocomplete_target: "input", action: "input->address-autocomplete#search keydown->address-autocomplete#onKeydown" },
               placeholder: "Close to this address"
             %>
+            <%= hidden_field_tag :latitude, params[:latitude], id: "advanced-latitude", data: { address_autocomplete_target: "latitude" } %>
+            <%= hidden_field_tag :longitude, params[:longitude], id: "advanced-longitude", data: { address_autocomplete_target: "longitude" } %>
 
             <%= label_tag "advanced-name", "Host name", class: "visually-hidden" %>
             <%= text_field_tag :name,

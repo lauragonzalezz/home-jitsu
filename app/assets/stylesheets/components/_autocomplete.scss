@@ -1,0 +1,39 @@
+// Dropdown for the Mapbox address autocomplete (see address_autocomplete_controller.js).
+// The wrapper is positioned so the suggestion list can sit under the input.
+.address-autocomplete {
+  position: relative;
+  width: 100%;
+}
+
+.address-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  background: $white;
+  border: 1px solid $light-grey;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.address-suggestion {
+  padding: 10px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  color: $dark-grey;
+
+  & + .address-suggestion {
+    border-top: 1px solid $lighter-grey;
+  }
+
+  &:hover,
+  &.active {
+    background: $light-purple;
+  }
+}

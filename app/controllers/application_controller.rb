@@ -9,10 +9,10 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
-    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name weight height belt years_of_experience address description gender photo training_style])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name weight height belt years_of_experience address latitude longitude description gender photo training_style])
 
     # For additional in app/views/devise/registrations/edit.html.erb
-    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name weight height belt years_of_experience address description gender photo training_style])
+    devise_parameter_sanitizer.permit(:account_update, keys: %i[first_name last_name weight height belt years_of_experience address latitude longitude description gender photo training_style])
   end
 
   def set_notifications
@@ -30,6 +30,17 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  # Where to center an address search: the coordinates the address autocomplete
+  # supplied, or a geocode of the typed query as a fallback. nil when neither
+  # resolves. Shared by the users and events index searches.
+  def search_coordinates
+    if params[:latitude].present? && params[:longitude].present?
+      [ params[:latitude].to_f, params[:longitude].to_f ]
+    else
+      Geocoder.search(params[:query]).first&.coordinates
+    end
+  end
 
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
