@@ -13,7 +13,7 @@
     overflow: hidden;
   }
   .stars-inactive {
-    color: $light-grey;
+    color: $mid-grey;
   }
   .stars-active {
     position: absolute;
@@ -31,4 +31,7 @@
 :root {
   --gl-star-empty: url('icons/star-empty.svg');
   --gl-star-full: url('icons/star-full.svg');
+}
+.banner .stars-inactive {
+  color: $white;
 }

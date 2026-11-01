@@ -1,4 +1,4 @@
-<h2><%= @message %></h2>
+<h1 class="h2"><%= @message %></h1>
 
 <%= simple_form_for(@user, url: edit_user_path(@user), data: { turbo: false, controller: "address-autocomplete", address_autocomplete_token_value: ENV["MAPBOX_API_KEY"] }) do |field| %>
   <%= render partial: 'shared/form', locals: { field: field } %>

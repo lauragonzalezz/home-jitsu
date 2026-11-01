@@ -97,4 +97,25 @@ class AccessibilityTest < ActionDispatch::IntegrationTest
     assert_select "button.link-button[data-attendee-list-target=link]", text: "See all"
     assert_select "#attendee-list[data-attendee-list-target=list]"
   end
+
+  # Pages that used to lead with a back-bar <h2> (or no heading at all) now carry
+  # exactly one page <h1>, so the heading outline starts at the right level.
+  test "key pages expose exactly one h1" do
+    sign_in users(:alice)
+
+    get users_path
+    assert_select "h1", count: 1, text: "Find a partner"
+
+    get events_path
+    assert_select "h1", count: 1, text: "Find an event"
+
+    get my_events_path
+    assert_select "h1", count: 1, text: "My events"
+
+    get user_path(users(:bob))
+    assert_select "h1", count: 1, text: "#{users(:bob).first_name} #{users(:bob).last_name}"
+
+    get edit_user_registration_path
+    assert_select "h1", count: 1, text: "Edit my profile"
+  end
 end
