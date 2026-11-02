@@ -29,6 +29,11 @@ class EventsController < ApplicationController
       @events = @events.select { |event| date <= event.date.to_i && event.date.to_i <= (date + (60 * 60 * 24)) }
     end
 
+    # Only upcoming events belong on the index: past ones can't be joined. The
+    # card list already hid them; filter here so the map markers match instead
+    # of still plotting past events.
+    @events = @events.select { |event| event.date.future? }
+
     @markers = @events.map do |event|
       {
         lat: event.latitude,

@@ -65,8 +65,6 @@
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
   <% @events.each do |event| %>
-    <% if event.date.future? %>
-      <%= render "shared/event", event: event %>
-    <% end %>
+    <%= render "shared/event", event: event %>
   <% end %>
 </div>

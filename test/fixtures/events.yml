@@ -17,3 +17,13 @@ closed_mat:
   address: 700 Atlantic Ave, Boston, MA
   latitude: 42.3509
   longitude: -71.0556
+
+past_mat:
+  host: alice
+  title: Last Month Open Mat
+  description: Already happened, should not show on the index.
+  date: <%= 1.week.ago.to_fs(:db) %>
+  status: Open
+  address: 100 Cambridge St, Boston, MA
+  latitude: 42.3615
+  longitude: -71.0636
