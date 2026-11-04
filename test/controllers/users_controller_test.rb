@@ -17,6 +17,11 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_select "a.card-box[href=?]", user_path(user), count: 0
   end
 
+  # The hrefs of the rendered partner cards, in display order.
+  def listed_user_paths
+    css_select("a.card-box").map { |card| card["href"] }
+  end
+
   test "index with no query lists other geocoded partners and excludes self" do
     get users_path
     assert_response :success
@@ -87,5 +92,54 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     # Locatable partners are still shown; we just can't sort by distance.
     assert_partner_listed @bob
+  end
+
+  test "default order is nearest first" do
+    get users_path
+    paths = listed_user_paths
+    # Carol sits almost on top of Alice; Bob is farther away.
+    assert_operator paths.index(user_path(@carol)), :<, paths.index(user_path(@bob))
+  end
+
+  test "sort by belt ascending lists white before purple" do
+    get users_path(sort: "belt_asc")
+    paths = listed_user_paths
+    assert_operator paths.index(user_path(@carol)), :<, paths.index(user_path(@bob))
+  end
+
+  test "sort by belt descending flips the order" do
+    get users_path(sort: "belt_desc")
+    paths = listed_user_paths
+    assert_operator paths.index(user_path(@bob)), :<, paths.index(user_path(@carol))
+  end
+
+  test "sort by distance descending lists the farther partner first" do
+    get users_path(sort: "distance_desc")
+    paths = listed_user_paths
+    assert_operator paths.index(user_path(@bob)), :<, paths.index(user_path(@carol))
+  end
+
+  test "sort by rating keeps unreviewed partners last in both directions" do
+    # Bob has a review; Carol has none, so she sorts last whichever way we go.
+    get users_path(sort: "rating_desc")
+    desc = listed_user_paths
+    assert_operator desc.index(user_path(@bob)), :<, desc.index(user_path(@carol))
+
+    get users_path(sort: "rating_asc")
+    asc = listed_user_paths
+    assert_operator asc.index(user_path(@bob)), :<, asc.index(user_path(@carol))
+  end
+
+  test "an unexpected sort value falls back to the default order without error" do
+    get users_path(sort: "bogus")
+    assert_response :success
+    assert_partner_listed @bob
+    assert_partner_listed @carol
+  end
+
+  test "index renders a labelled sort control" do
+    get users_path
+    assert_select "label[for=sort]", text: "Sort by"
+    assert_select "select[name=sort]"
   end
 end

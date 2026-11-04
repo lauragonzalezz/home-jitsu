@@ -45,4 +45,24 @@ class ApplicationController < ActionController::Base
   def skip_pundit?
     devise_controller? || params[:controller] =~ /(^(rails_)?admin)|(^pages$)/
   end
+
+  # Parse the combined "field_direction" sort param (e.g. "belt_desc") against
+  # an allow-list. Returns [field, direction], falling back to distance
+  # ascending for anything missing or unexpected. Shared by the index searches.
+  def parse_sort(value, allowed)
+    field, _, direction = value.to_s.rpartition("_")
+    field = "distance" unless allowed.include?(field)
+    direction = "asc" unless %w[asc desc].include?(direction)
+    [ field, direction ]
+  end
+
+  # Sort a collection by the block's key, always pushing records whose key is
+  # nil (no reviews, unranked belt) to the end in both directions. direction is
+  # "asc" or "desc".
+  def sort_nils_last(collection, direction, &key)
+    ranked, unranked = collection.to_a.partition { |item| !key.call(item).nil? }
+    ranked = ranked.sort_by(&key)
+    ranked.reverse! if direction == "desc"
+    ranked + unranked
+  end
 end

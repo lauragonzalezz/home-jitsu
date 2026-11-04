@@ -64,6 +64,9 @@
     data-map-markers-value="<%= @markers.to_json %>"
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
+  <% if @events.any? %>
+    <%= render "shared/sort_bar", options: @sort_options, selected: @sort %>
+  <% end %>
   <% @events.each do |event| %>
     <%= render "shared/event", event: event %>
   <% end %>

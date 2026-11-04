@@ -144,6 +144,9 @@
     </div>
   </div>
 
+  <% if @users.any? { |user| user != current_user } %>
+    <%= render "shared/sort_bar", options: @sort_options, selected: @sort %>
+  <% end %>
   <% @users.each do |user| %>
     <% if user != current_user %>
       <%= render "shared/user", user: user %>

@@ -1,0 +1,15 @@
+<%# Sort control shown above a results list. The <select> auto-submits on change
+    (auto-submit controller); hidden fields carry the current search and filters
+    through so sorting doesn't drop them. `options` and `selected` are passed in. %>
+<div class="sort-bar">
+  <%= form_with url: request.path, method: :get, class: "sort-bar__form", data: { controller: "auto-submit" } do %>
+    <% request.query_parameters.except("sort").each do |key, value| %>
+      <%= hidden_field_tag key, value %>
+    <% end %>
+    <%= label_tag :sort, "Sort by", class: "sort-bar__label" %>
+    <%= select_tag :sort,
+      options_for_select(options, selected),
+      class: "form-select",
+      data: { action: "change->auto-submit#submit" } %>
+  <% end %>
+</div>
