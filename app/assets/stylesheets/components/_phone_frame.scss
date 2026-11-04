@@ -1,0 +1,112 @@
+// Phone frame for tablet and up. On phones the two wrappers are display:contents
+// (invisible to layout), so the mobile-first app is completely unchanged. From
+// 769px the app renders inside a phone mockup centered on a gradient backdrop.
+
+// Tweak these two to match the mockup image:
+$phone-breakpoint: 769px;
+
+.app-frame,
+.app-screen {
+  display: contents;
+}
+
+@media (min-width: $phone-breakpoint) {
+  body {
+    // The bars live inside the screen now, so drop the viewport padding that
+    // cleared the fixed navbar/footer on mobile.
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(160deg, $lighter-grey 0%, $light-purple 100%);
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-frame {
+    display: block;
+    position: relative;
+    // Square so the 1800x1800 mockup is always fully visible with `contain`.
+    // Sized by whichever viewport dimension is smaller so it never clips.
+    width: min(100vh, 100vw);
+    height: min(100vh, 100vw);
+    background: url("iphone-mockup.png") no-repeat center top / contain;
+  }
+
+  .app-screen {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    // Centers the screen AND makes it the containing block for the app's fixed
+    // overlays (flash alert, advanced search), so they stay inside the phone.
+    transform: translate(-50%, -50%);
+    width: 43%;
+    height: 80%;
+    overflow: hidden;
+    background: $lighter-grey;
+  }
+
+  // Navbar and footer join the flex column as fixed-height rails instead of
+  // being fixed to the viewport.
+  .navbar-lewagon,
+  .footer {
+    position: relative;
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  // Custom styles to fix the back bar on tablets and up
+  .back-bar.navbar-lewagon {
+    margin-left: -15px;
+    margin-right: -15px;
+    width: auto;
+  }
+  #advanced-search {
+    padding-top: 0;
+  }
+  #advanced-search .back-bar.navbar-lewagon {
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+  }
+  body.chatrooms.show .navbar-light.navbar-lewagon,
+  body.users.show .navbar-light.navbar-lewagon,
+  body.registrations.edit .navbar-light.navbar-lewagon,
+  body.events.edit .navbar-light.navbar-lewagon,
+  body.events.new .navbar-light.navbar-lewagon,
+  body.reviews.index .navbar-light.navbar-lewagon,
+  body.reviews.new .navbar-light.navbar-lewagon {
+    display: none;
+  }
+
+  // The content area is the scroll view that grows to fill the space between
+  // the rails. min-height:0 lets it shrink so it actually scrolls.
+  main.container {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-width: none;
+    overflow-y: auto;
+  }
+
+  // The chat page sized itself off the browser viewport (100dvh). Inside the
+  // screen, let the content column drive it: make main a flex column and the
+  // chatroom grow into the space left under the back bar (min-height:0 so the
+  // messages scroll instead of overflowing behind the footer).
+  body.chatrooms main.container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chatroom {
+    height: auto;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  // Loading screen measured the viewport too.
+  .pages.loading {
+    height: 100%;
+  }
+}
