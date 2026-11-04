@@ -17,3 +17,5 @@
 @import "search";
 @import "autocomplete";
 @import "sort_bar";
+// Last so its tablet+ overrides win over the component defaults above.
+@import "phone_frame";

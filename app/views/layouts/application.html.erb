@@ -39,11 +39,18 @@
 
   <body class="<%= controller.controller_name %> <%= controller.action_name %>">
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable skip-link" %>
-    <%= render "shared/navbar" %>
-    <%= render "shared/flashes" %>
-    <main id="main-content" class="container">
-      <%= yield %>
-    </main>
-    <%= render "shared/footer" %>
+    <%# On tablet+ .app-frame shows the phone mockup and .app-screen is the
+        screen the app renders inside. On phones both are display:contents, so
+        the layout is unchanged. %>
+    <div class="app-frame">
+      <div class="app-screen">
+        <%= render "shared/navbar" %>
+        <%= render "shared/flashes" %>
+        <main id="main-content" class="container">
+          <%= yield %>
+        </main>
+        <%= render "shared/footer" %>
+      </div>
+    </div>
   </body>
 </html>
