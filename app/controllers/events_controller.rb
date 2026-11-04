@@ -2,6 +2,13 @@ class EventsController < ApplicationController
   before_action :set_user, only: %i[create my_events]
   before_action :set_event, only: %i[edit update destroy show]
 
+  SORT_OPTIONS = [
+    [ "Near to far", "distance_asc" ],
+    [ "Far to near", "distance_desc" ],
+    [ "Soonest first", "date_asc" ],
+    [ "Latest first", "date_desc" ]
+  ].freeze
+
   def index
     @events = Event.all
     policy_scope(@events)
@@ -33,6 +40,8 @@ class EventsController < ApplicationController
     # card list already hid them; filter here so the map markers match instead
     # of still plotting past events.
     @events = @events.select { |event| event.date.future? }
+
+    @events = apply_sort(@events)
 
     @markers = @events.map do |event|
       {
@@ -111,6 +120,20 @@ class EventsController < ApplicationController
   end
 
   private
+
+  # Reorder the already-filtered events by the chosen sort. The index query
+  # already orders ascending by distance, so "distance" only has to honor the
+  # direction; "date" re-sorts in Ruby (every event has a date).
+  def apply_sort(events)
+    @sort_options = SORT_OPTIONS
+    field, direction = parse_sort(params[:sort], %w[distance date])
+    @sort = "#{field}_#{direction}"
+
+    case field
+    when "date" then sort_nils_last(events, direction, &:date)
+    else             direction == "desc" ? events.to_a.reverse : events
+    end
+  end
 
   def set_user
     @user = current_user

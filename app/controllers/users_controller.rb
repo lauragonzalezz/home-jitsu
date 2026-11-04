@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
+  SORT_OPTIONS = [
+    [ "Near to far", "distance_asc" ],
+    [ "Far to near", "distance_desc" ],
+    [ "White to black belt", "belt_asc" ],
+    [ "Black to white belt", "belt_desc" ],
+    [ "High to low rating", "rating_desc" ],
+    [ "Low to high rating", "rating_asc" ]
+  ].freeze
+
   def index
     @users = policy_scope(User)
 
@@ -57,6 +66,8 @@ class UsersController < ApplicationController
     if params[:gender].present?
       @users = @users.select { |user| user.gender == params[:gender] }
     end
+
+    @users = apply_sort(@users)
   end
 
   def show
@@ -80,6 +91,21 @@ class UsersController < ApplicationController
   end
 
   private
+
+  # Reorder the already-filtered partners by the chosen sort. The index query
+  # already orders ascending by distance, so "distance" only has to honor the
+  # direction; belt and rating re-sort in Ruby, unranked/unreviewed users last.
+  def apply_sort(users)
+    @sort_options = SORT_OPTIONS
+    field, direction = parse_sort(params[:sort], %w[distance belt rating])
+    @sort = "#{field}_#{direction}"
+
+    case field
+    when "belt"   then sort_nils_last(users, direction, &:belt_rank)
+    when "rating" then sort_nils_last(users, direction) { |user| user.reviews.average(:rating) }
+    else               direction == "desc" ? users.to_a.reverse : users
+    end
+  end
 
   def set_user
     @user = User.find(params[:id])

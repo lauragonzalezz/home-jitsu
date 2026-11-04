@@ -40,6 +40,12 @@ class User < ApplicationRecord
     Geocoder::Calculations.distance_between(geolocation, [ latitude, longitude ])
   end
 
+  # Belt rank for sorting: white (lowest) to black (highest). "None" is
+  # unranked, so return nil and let the caller sort those last.
+  def belt_rank
+    BELTS.index(belt) unless belt == "None"
+  end
+
   def partnerships
     requested_partners + partners
   end

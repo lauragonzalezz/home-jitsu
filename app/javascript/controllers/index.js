@@ -10,6 +10,9 @@ application.register("address-autocomplete", AddressAutocompleteController)
 import AdvancedSearchController from "./advanced_search_controller"
 application.register("advanced-search", AdvancedSearchController)
 
+import AutoSubmitController from "./auto_submit_controller"
+application.register("auto-submit", AutoSubmitController)
+
 import AttendeeListController from "./attendee_list_controller"
 application.register("attendee-list", AttendeeListController)
 
