@@ -3,10 +3,10 @@ class EventsController < ApplicationController
   before_action :set_event, only: %i[edit update destroy show]
 
   SORT_OPTIONS = [
-    [ "Distance: near to far", "distance_asc" ],
-    [ "Distance: far to near", "distance_desc" ],
-    [ "Date: soonest first", "date_asc" ],
-    [ "Date: latest first", "date_desc" ]
+    [ "Near to far", "distance_asc" ],
+    [ "Far to near", "distance_desc" ],
+    [ "Soonest first", "date_asc" ],
+    [ "Latest first", "date_desc" ]
   ].freeze
 
   def index

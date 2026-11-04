@@ -2,12 +2,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: %i[show edit update]
 
   SORT_OPTIONS = [
-    [ "Distance: near to far", "distance_asc" ],
-    [ "Distance: far to near", "distance_desc" ],
-    [ "Belt: white to black", "belt_asc" ],
-    [ "Belt: black to white", "belt_desc" ],
-    [ "Rating: high to low", "rating_desc" ],
-    [ "Rating: low to high", "rating_asc" ]
+    [ "Near to far", "distance_asc" ],
+    [ "Far to near", "distance_desc" ],
+    [ "White to black belt", "belt_asc" ],
+    [ "Black to white belt", "belt_desc" ],
+    [ "High to low rating", "rating_desc" ],
+    [ "Low to high rating", "rating_asc" ]
   ].freeze
 
   def index

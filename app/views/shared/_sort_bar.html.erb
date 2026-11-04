@@ -6,10 +6,13 @@
     <% request.query_parameters.except("sort").each do |key, value| %>
       <%= hidden_field_tag key, value %>
     <% end %>
-    <%= label_tag :sort, "Sort by", class: "sort-bar__label" %>
+    <%# The visible label is hidden on mobile (d-none), which also hides it from
+        screen readers, so aria-label keeps the control named at every width. %>
+    <%= label_tag :sort, "Sort by", class: "sort-bar__label d-none d-sm-inline-block" %>
     <%= select_tag :sort,
       options_for_select(options, selected),
       class: "form-select",
+      aria: { label: "Sort by" },
       data: { action: "change->auto-submit#submit" } %>
   <% end %>
 </div>

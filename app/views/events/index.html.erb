@@ -65,7 +65,10 @@
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
   <% if @events.any? %>
-    <%= render "shared/sort_bar", options: @sort_options, selected: @sort %>
+    <div class="px-3 gap-2 mb-2 d-flex justify-content-between align-items-center">
+      <h2 class="m-0">Events found</h2>
+      <%= render "shared/sort_bar", options: @sort_options, selected: @sort %>
+    </div>
   <% end %>
   <% @events.each do |event| %>
     <%= render "shared/event", event: event %>

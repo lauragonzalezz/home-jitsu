@@ -54,6 +54,7 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
   test "index renders a labelled sort control" do
     get events_path
     assert_select "label[for=sort]", text: "Sort by"
-    assert_select "select[name=sort]"
+    # aria-label keeps the control named even where the visible label is hidden.
+    assert_select "select[name=sort][aria-label=?]", "Sort by"
   end
 end

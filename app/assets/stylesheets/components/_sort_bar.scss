@@ -1,7 +1,6 @@
 // Sort control above the partner / event lists: a "Sort by" label and a
 // select that auto-submits. Sits between the search box and the result cards.
 .sort-bar {
-  padding: 10px 15px 0;
 
   &__form {
     display: flex;
@@ -19,5 +18,7 @@
   .form-select {
     flex: 1;
     width: auto;
+    padding-right: 30px;
+    background-color: #fff;
   }
 }
