@@ -17,8 +17,12 @@
   </div>
 
   <div class="add-message">
+    <small class="chat-error" role="alert" hidden
+      data-chatroom-subscription-target="error">
+      Message not sent. Check your connection and try again.
+    </small>
     <%= simple_form_for [@chatroom, @message],
-      html: { data: { action: "turbo:submit-end->chatroom-subscription#resetForm" }, class: "d-flex" } do |f|
+      html: { data: { action: "turbo:submit-start->chatroom-subscription#submitStart turbo:submit-end->chatroom-subscription#submitEnd" }, class: "d-flex" } do |f|
     %>
       <%= f.input :content, as: :string,
         label: "Message",
@@ -26,9 +30,10 @@
         required: true,
         placeholder: "Type message",
         wrapper_html: {class: "flex-grow-1"},
-        input_html: { data: { chatroom_subscription_target: "input" } }
+        input_html: { data: { chatroom_subscription_target: "input", action: "input->chatroom-subscription#inputChanged" } }
       %>
-      <%= f.submit "Send", class: "purple-circle-button" %>
+      <%= f.submit "Send", class: "purple-circle-button",
+        data: { chatroom_subscription_target: "button" } %>
     <% end %>
   </div>
 </div>
