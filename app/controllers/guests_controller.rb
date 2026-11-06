@@ -24,9 +24,9 @@ class GuestsController < ApplicationController
     authorize @guest
     if @guest.save
       notify_recipient
-      redirect_to invite_partners_path(current_user)
+      redirect_to event_invite_partners_path(@guest.event_id)
     else
-      render invite_partners_path(current_user), :unprocessable_entity
+      redirect_to event_invite_partners_path(@guest.event_id), alert: "Could not send the invite."
     end
   end
 

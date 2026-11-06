@@ -125,7 +125,7 @@
   <% if @event.host_id == current_user.id && @event.date.future? %>
     <div class="d-flex button-block my-3">
       <%= link_to "Edit event", edit_event_path(@event), class: "btn btn-primary d-block w-100" %>
-      <%= link_to "Invite partners", invite_partners_path(@event.id), class: "btn btn-primary d-block w-100" %>
+      <%= link_to "Invite partners", event_invite_partners_path(@event), class: "btn btn-primary d-block w-100" %>
       <%= link_to "Delete", event_path(@event), data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-secondary d-block w-100" %>
     </div>
   <% end %>

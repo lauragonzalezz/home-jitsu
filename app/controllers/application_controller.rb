@@ -7,6 +7,9 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
+  # A failed authorization sends the user back with a flash instead of 500-ing.
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
   def configure_permitted_parameters
     # For additional fields in app/views/devise/registrations/new.html.erb
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name weight height belt years_of_experience address latitude longitude description gender photo training_style])
@@ -30,6 +33,11 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def user_not_authorized
+    flash[:alert] = "You're not allowed to do that."
+    redirect_back fallback_location: root_path
+  end
 
   # Where to center an address search: the coordinates the address autocomplete
   # supplied, or a geocode of the typed query as a fallback. nil when neither

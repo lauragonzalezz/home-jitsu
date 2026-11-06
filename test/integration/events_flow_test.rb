@@ -32,7 +32,9 @@ class EventsFlowTest < ActionDispatch::IntegrationTest
   test "a non-host cannot destroy someone else's event" do
     event = events(:closed_mat) # hosted by bob
     assert_no_difference "Event.count" do
-      assert_raises(Pundit::NotAuthorizedError) { delete event_path(event) }
+      delete event_path(event)
     end
+    assert_redirected_to root_path
+    assert_equal "You're not allowed to do that.", flash[:alert]
   end
 end

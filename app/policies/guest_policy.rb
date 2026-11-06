@@ -3,8 +3,10 @@ class GuestPolicy < ApplicationPolicy
     true
   end
 
+  # Only the event's host can invite others. Anyone else who wants to attend
+  # self-RSVPs through #create instead.
   def invite?
-    true
+    record.event&.host_id == user.id
   end
 
   def destroy?

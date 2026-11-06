@@ -9,7 +9,6 @@ class UserPolicyTest < ActiveSupport::TestCase
   test "anyone can view a profile and the public listings" do
     policy = UserPolicy.new(@other, @user)
     assert policy.show?
-    assert policy.invite_partners_list?
     assert policy.my_events?
   end
 

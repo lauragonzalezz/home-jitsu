@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     resources :reviews
   end
 
-  resources :events
+  resources :events do
+    get "invite_partners", to: "partners#invite_partners_list"
+  end
 
   resources :guests, only: %i[create destroy]
 
@@ -26,8 +28,6 @@ Rails.application.routes.draw do
   get "my_invites", to: "events#my_invites"
 
   get "notifications", to: "notifications#index"
-
-  get "invite_partners", to: "partners#invite_partners_list"
 
   patch "/partners/:id/accept", to: "partners#accept", as: :accept
   patch "/partners/:id/reject", to: "partners#reject", as: :reject
