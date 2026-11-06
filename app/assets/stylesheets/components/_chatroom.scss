@@ -19,6 +19,12 @@
     background: $light-grey;
     margin: 0 -15px;
     padding: 10px 15px;
+    .chat-error {
+      display: block;
+      margin-bottom: 8px;
+      // Darkened so small red text clears AA on the light-grey bar.
+      color: darken($red, 14%);
+    }
     .form-group, .message_content {
       margin-bottom: 0!important;
     }
@@ -32,6 +38,11 @@
       background-repeat: no-repeat;
       background-position: center;
       background-size: 20px;
+      // Nothing to send yet: dim the icon and drop the pointer affordance.
+      &:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
     }
   }
 }

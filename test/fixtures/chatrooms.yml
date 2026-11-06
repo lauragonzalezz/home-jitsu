@@ -1,0 +1,8 @@
+<%
+  # Chatroom names encode the two member ids, sorted, as "private_<low>_<high>_".
+  # The policy/scope match on "_<id>_", so the ids must be the fixtures' own ids.
+  alice_bob = [ ActiveRecord::FixtureSet.identify(:alice), ActiveRecord::FixtureSet.identify(:bob) ].sort
+%>
+
+alice_bob:
+  name: "private_<%= alice_bob[0] %>_<%= alice_bob[1] %>_"
