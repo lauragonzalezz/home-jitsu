@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  skip_before_action :authenticate_user!, only: %i[home loading]
+  skip_before_action :authenticate_user!, only: :home
 
   def home
     if user_signed_in?
@@ -19,8 +19,5 @@ class PagesController < ApplicationController
     @events = Event.all
     upcoming, past = @events.sort_by(&:date).partition { |a| a.date.future? }
     @sorted = [ [ *upcoming ], [ *past.reverse ] ]
-  end
-
-  def loading
   end
 end
