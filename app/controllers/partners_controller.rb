@@ -6,13 +6,9 @@ class PartnersController < ApplicationController
   end
 
   def invite_partners_list
-    @event = Event.find(params[:format])
-    @user = User.find(current_user.id)
-    authorize @user
-    @partners = Partner.select { |partner| partner.requester_id == current_user.id || partner.requestee_id == current_user.id }
-    @guests = Guest.select { |guest| guest.event_id == @event.id }
-    @guests_ids = []
-    @guests.each { |guest| @guests_ids << guest.guest_id }
+    @event = Event.find(params[:event_id])
+    authorize @event
+    @guests_ids = Guest.where(event_id: @event.id).pluck(:guest_id)
   end
 
   def create

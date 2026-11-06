@@ -15,6 +15,11 @@ class EventPolicy < ApplicationPolicy
     record.host_id == user.id
   end
 
+  # Only the host can open the "invite your partners" list for their event.
+  def invite_partners_list?
+    record.host_id == user.id
+  end
+
   def update?
     record.host_id == user.id
   end

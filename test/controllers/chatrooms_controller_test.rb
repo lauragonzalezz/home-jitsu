@@ -52,8 +52,8 @@ class ChatroomsControllerTest < ActionDispatch::IntegrationTest
 
   test "show is forbidden for a user who is not in the room" do
     sign_in @carol
-    assert_raises(Pundit::NotAuthorizedError) do
-      get chatroom_path(@chatroom)
-    end
+    get chatroom_path(@chatroom)
+    assert_redirected_to root_path
+    assert_equal "You're not allowed to do that.", flash[:alert]
   end
 end
