@@ -51,3 +51,6 @@
 
 # Local planning docs. Never commit.
 /plans/
+
+# Playwright MCP browser snapshots/screenshots (local tool output).
+/.playwright-mcp/
