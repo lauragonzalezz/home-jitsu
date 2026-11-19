@@ -10,8 +10,13 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     assert_includes @response.body, "Sunday Open Mat"
-    markers = css_select("#map").first["data-map-markers-value"]
-    assert_includes markers, "Sunday Open Mat"
+    markers = JSON.parse(css_select("#map").first["data-map-markers-value"])
+    marker = markers.find { |m| m["title"] == "Sunday Open Mat" }
+    # Each marker carries a plain title (the map marker's accessible label) plus
+    # finite coordinates, so the controller never breaks on them.
+    assert marker, "expected a marker titled 'Sunday Open Mat'"
+    assert marker["lat"].is_a?(Numeric)
+    assert marker["lng"].is_a?(Numeric)
   end
 
   test "index hides past events from both the list and the map markers" do
