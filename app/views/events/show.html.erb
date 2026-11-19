@@ -100,8 +100,8 @@
                 </small>
               </div>
               <div class="d-flex align-items-center">
-                <%= button_to raw("<i class='fa-solid fa-check' aria-hidden='true'></i>"),  {:controller => "guests", :action => "accept", :event_id => @event.id, :guest_id => guest.id  },  {:method=>:patch, class: "btn btn-xs btn-primary d-block w-100", "aria-label" => "Accept #{user.first_name}"} %>
-                <%= button_to raw("<i class='fa-solid fa-xmark' aria-hidden='true'></i>"),  {:controller => "guests", :action => "reject", :event_id => @event.id, :guest_id => guest.id },  {:method=>:patch, class: "btn btn-xs btn-secondary d-block w-100 ms-1", "aria-label" => "Reject #{user.first_name}"} %>
+                <%= button_to raw("<i class='fa-solid fa-check' aria-hidden='true'></i>"),  {:controller => "guests", :action => "accept", :event_id => @event.id, :guest_id => guest.id  },  {:method=>:patch, class: "btn btn-xs btn-primary d-block w-100", "aria-label" => "Accept #{user.first_name}", data: { turbo_submits_with: "…" }} %>
+                <%= button_to raw("<i class='fa-solid fa-xmark' aria-hidden='true'></i>"),  {:controller => "guests", :action => "reject", :event_id => @event.id, :guest_id => guest.id },  {:method=>:patch, class: "btn btn-xs btn-secondary d-block w-100 ms-1", "aria-label" => "Reject #{user.first_name}", data: { turbo_submits_with: "…" }} %>
               </div>
             </div>
           </div>
@@ -110,12 +110,12 @@
     </div>
   <% else %>
     <% if !@include_guest.include?(current_user.id) && @event.date.future? %>
-      <%= button_to "Join event", {:controller => "guests", :action => "create", :guest_id => current_user.id, :event_id => @event.id} , {:method=>:post, class: "btn btn-primary d-block w-100 my-3"} %>
+      <%= button_to "Join event", {:controller => "guests", :action => "create", :guest_id => current_user.id, :event_id => @event.id} , {:method=>:post, class: "btn btn-primary d-block w-100 my-3", data: { turbo_submits_with: "Joining…" }} %>
     <% elsif @invited_guests_ids.include?(current_user.id) %>
     <% guest = Guest.where(guest_id: current_user.id, event_id: @event.id).last %>
       <div class="d-flex button-block my-3">
-        <%= button_to "I'm going",  {:controller => "guests", :action => "accept", :event_id => @event.id, :guest_id => guest.id  },  {:method=>:patch, class: "btn btn-primary d-block w-100"} %>
-        <%= button_to "Can't make it",  {:controller => "guests", :action => "reject", :event_id => @event.id, :guest_id => guest.id },  {:method=>:patch, class: "btn btn-secondary d-block w-100"} %>
+        <%= button_to "I'm going",  {:controller => "guests", :action => "accept", :event_id => @event.id, :guest_id => guest.id  },  {:method=>:patch, class: "btn btn-primary d-block w-100", data: { turbo_submits_with: "Saving…" }} %>
+        <%= button_to "Can't make it",  {:controller => "guests", :action => "reject", :event_id => @event.id, :guest_id => guest.id },  {:method=>:patch, class: "btn btn-secondary d-block w-100", data: { turbo_submits_with: "Saving…" }} %>
       </div>
     <% elsif @pending_guests_ids.include?(current_user.id) || @confirmed_guests_ids.include?(current_user.id) %>
     <% guest = Guest.where(guest_id: current_user.id, event_id: @event.id).last %>
