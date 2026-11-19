@@ -1,0 +1,11 @@
+<%#
+  Shared empty-state block: a muted icon, a short heading and a line of help text.
+  locals: icon (filename under images/icons), title, message
+%>
+<div class="empty-state">
+  <%= image_tag "icons/#{icon}", alt: "", width: 40, class: "empty-state-icon" %>
+  <p class="empty-state-title"><%= title %></p>
+  <% if local_assigns[:message].present? %>
+    <p class="empty-state-message"><%= message %></p>
+  <% end %>
+</div>

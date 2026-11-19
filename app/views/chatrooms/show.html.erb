@@ -7,6 +7,12 @@
   data-chatroom-subscription-current-user-id-value="<%= current_user.id %>">
 
   <div class="messages" data-chatroom-subscription-target="messages">
+    <% if @messages.empty? %>
+      <%= render "shared/empty_state",
+        icon: "message.svg",
+        title: "No messages yet",
+        message: "Say hi to #{other_user.first_name} to get started." %>
+    <% end %>
     <% @messages.each do |message| %>
       <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
         <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">

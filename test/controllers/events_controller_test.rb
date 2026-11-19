@@ -19,6 +19,16 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     assert marker["lng"].is_a?(Numeric)
   end
 
+  test "index shows an empty state when a search matches no events" do
+    # Far-away coords (Montreal): no Boston fixtures fall within range, so the
+    # search returns nothing and the empty state takes over.
+    get events_path(query: "nowhere", latitude: 45.5308, longitude: -73.6176)
+    assert_response :success
+
+    assert_select ".empty-state", 1
+    assert_select ".empty-state-title", text: "No events match your search"
+  end
+
   test "index hides past events from both the list and the map markers" do
     get events_path
     assert_response :success

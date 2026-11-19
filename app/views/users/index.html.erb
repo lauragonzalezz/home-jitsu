@@ -149,10 +149,15 @@
       <h2 class="m-0">Partners found</h2>
       <%= render "shared/sort_bar", options: @sort_options, selected: @sort %>
     </div>
-  <% end %>
-  <% @users.each do |user| %>
-    <% if user != current_user %>
-      <%= render "shared/user", user: user %>
+    <% @users.each do |user| %>
+      <% if user != current_user %>
+        <%= render "shared/user", user: user %>
+      <% end %>
     <% end %>
+  <% else %>
+    <%= render "shared/empty_state",
+      icon: "users.svg",
+      title: params[:query].present? ? "No partners match your search" : "No partners nearby yet",
+      message: params[:query].present? ? "Try a different address or widen your filters." : "Check back soon as more people join." %>
   <% end %>
 </div>
