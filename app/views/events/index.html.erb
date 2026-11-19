@@ -69,8 +69,13 @@
       <h2 class="m-0">Events found</h2>
       <%= render "shared/sort_bar", options: @sort_options, selected: @sort %>
     </div>
-  <% end %>
-  <% @events.each do |event| %>
-    <%= render "shared/event", event: event %>
+    <% @events.each do |event| %>
+      <%= render "shared/event", event: event %>
+    <% end %>
+  <% else %>
+    <%= render "shared/empty_state",
+      icon: "calendar.svg",
+      title: params[:query].present? ? "No events match your search" : "No events nearby yet",
+      message: params[:query].present? ? "Try a different address or widen your filters." : "Be the first to host an open mat in your area." %>
   <% end %>
 </div>

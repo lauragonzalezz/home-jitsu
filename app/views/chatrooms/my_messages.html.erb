@@ -1,6 +1,14 @@
 <h1>Messages</h1>
 <div class="component-container">
-  <% @chatrooms.each do |chat| %>
-    <%= render "chat", chat: chat %>
+  <% conversations = @chatrooms.select { |chat| chat.messages.any? } %>
+  <% if conversations.any? %>
+    <% conversations.each do |chat| %>
+      <%= render "chat", chat: chat %>
+    <% end %>
+  <% else %>
+    <%= render "shared/empty_state",
+      icon: "message.svg",
+      title: "No conversations yet",
+      message: "Message a partner from their profile to start chatting." %>
   <% end %>
 </div>

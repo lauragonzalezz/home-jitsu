@@ -71,6 +71,9 @@ export default class extends Controller {
     return currentUserIsSender ? "sender-style" : "receiver-style"
   }
   #insertMessageAndScrollDown(data) {
+    // Drop the "no messages yet" placeholder once a real message lands.
+    this.messagesTarget.querySelector(".empty-state")?.remove()
+
     // Logic to know if the sender is the current_user
     const currentUserIsSender = this.currentUserIdValue === data.sender_id
 

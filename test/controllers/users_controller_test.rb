@@ -137,6 +137,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_partner_listed @carol
   end
 
+  test "index shows an empty state when a search matches no partners" do
+    # Far-away coords (Montreal): no Boston fixtures fall within range.
+    get users_path(query: "Boston, MA", latitude: 45.5308, longitude: -73.6176)
+    assert_response :success
+
+    assert_select ".empty-state", 1
+    assert_select ".empty-state-title", text: "No partners match your search"
+    refute_partner_listed @bob
+  end
+
   test "index renders a labelled sort control" do
     get users_path
     assert_select "label[for=sort]", text: "Sort by"

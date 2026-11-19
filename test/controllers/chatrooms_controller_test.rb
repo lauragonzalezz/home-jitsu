@@ -56,4 +56,32 @@ class ChatroomsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
     assert_equal "You're not allowed to do that.", flash[:alert]
   end
+
+  test "show renders an empty state when the conversation has no messages" do
+    ids = [ @alice.id, @carol.id ].sort
+    empty_room = Chatroom.create!(name: "private_#{ids[0]}_#{ids[1]}_")
+
+    get chatroom_path(empty_room)
+    assert_response :success
+
+    assert_select ".messages .empty-state", 1
+    assert_select ".empty-state-title", text: "No messages yet"
+  end
+
+  test "my_messages lists conversations that have messages" do
+    get my_messages_path
+    assert_response :success
+
+    assert_select "a.card-box[href=?]", chatroom_path(@chatroom)
+    assert_select ".empty-state", 0
+  end
+
+  test "my_messages shows an empty state when there are no conversations" do
+    sign_in @carol
+    get my_messages_path
+    assert_response :success
+
+    assert_select ".empty-state", 1
+    assert_select ".empty-state-title", text: "No conversations yet"
+  end
 end

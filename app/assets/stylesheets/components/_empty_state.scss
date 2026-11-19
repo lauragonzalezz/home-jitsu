@@ -1,0 +1,29 @@
+// Shared "nothing here yet" block: a centered, muted icon over a short message.
+// Used on the events, partners and conversations lists, and in an empty chat.
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 6px;
+  padding: 40px 24px;
+  color: $mid-grey;
+
+  .empty-state-icon {
+    // The icons are dark line art; fade them so they read as a quiet hint.
+    opacity: 0.35;
+    margin-bottom: 4px;
+  }
+
+  .empty-state-title {
+    margin: 0;
+    font-weight: 500;
+    color: $dark-grey;
+  }
+
+  .empty-state-message {
+    margin: 0;
+    font-size: 14px;
+    max-width: 28ch;
+  }
+}
