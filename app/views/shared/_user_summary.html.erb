@@ -1,0 +1,26 @@
+<%#
+  User identity block for a card: name, belt badge, and experience line.
+  locals: user; link (when true, the name links to the profile — used where the
+  surrounding card isn't itself a link, so we don't nest anchors).
+%>
+<div class="flex-grow-1">
+  <p class="m-0">
+    <strong>
+      <% if local_assigns[:link] %>
+        <%= link_to "#{user.first_name} #{user.last_name}", user_path(user) %>
+      <% else %>
+        <%= user.first_name %> <%= user.last_name %>
+      <% end %>
+    </strong>
+    <% if user.belt != "None" %>
+      <%= image_tag "belts/#{user.belt.downcase}-belt.svg", alt: "#{user.belt} belt", width: 20, class: "belt" %>
+    <% end %>
+  </p>
+  <small>
+    <% if user.years_of_experience > 0 %>
+      <%= user.years_of_experience %> years of experience
+    <% else %>
+      New to BJJ
+    <% end %>
+  </small>
+</div>
