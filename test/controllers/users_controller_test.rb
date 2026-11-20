@@ -153,4 +153,23 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     # aria-label keeps the control named even where the visible label is hidden.
     assert_select "select[name=sort][aria-label=?]", "Sort by"
   end
+
+  test "the message and add-partner buttons disable on submit" do
+    # bob and carol have no partner link or chatroom yet, so bob sees both the
+    # Message and Add Partner actions on carol's profile.
+    sign_in @bob
+    get user_path(@carol)
+    assert_response :success
+
+    assert_select "button[data-turbo-submits-with=?]", "Opening…"
+    assert_select "button[data-turbo-submits-with=?]", "Sending…"
+  end
+
+  test "the partner accept and reject buttons disable on submit" do
+    # carol has a pending request to alice, so alice (the requestee) sees both.
+    get user_path(@carol)
+    assert_response :success
+
+    assert_select "button[data-turbo-submits-with=?]", "Saving…", count: 2
+  end
 end

@@ -72,4 +72,22 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
     # aria-label keeps the control named even where the visible label is hidden.
     assert_select "select[name=sort][aria-label=?]", "Sort by"
   end
+
+  test "the host's accept and reject buttons disable on submit" do
+    # alice hosts open_mat and bob has a pending request to join it.
+    get event_path(events(:open_mat))
+    assert_response :success
+
+    # Both action buttons carry turbo-submits-with so a rapid double-tap can't
+    # fire the request twice.
+    assert_select "button[data-turbo-submits-with=?]", "…", count: 2
+  end
+
+  test "the join button disables on submit" do
+    # alice is neither the host nor a guest of closed_mat, so she sees Join.
+    get event_path(events(:closed_mat))
+    assert_response :success
+
+    assert_select "button[data-turbo-submits-with=?]", "Joining…"
+  end
 end

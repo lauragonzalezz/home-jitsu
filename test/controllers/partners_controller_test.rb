@@ -27,6 +27,15 @@ class PartnersControllerTest < ActionDispatch::IntegrationTest
     assert_select "form[action^=?]", "/guests/invite_link", count: 0
   end
 
+  test "the invite buttons disable on submit" do
+    sign_in @alice
+    # alice hosts past_mat with no guests yet, so both her friends show Invite.
+    get event_invite_partners_path(events(:past_mat))
+    assert_response :success
+
+    assert_select "button[data-turbo-submits-with=?]", "Inviting…", count: 2
+  end
+
   test "a non-host cannot open another user's event invite list" do
     sign_in @bob
     get event_invite_partners_path(@event)
