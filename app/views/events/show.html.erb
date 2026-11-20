@@ -10,7 +10,7 @@
       <h1 class="mt-3"><%= @event.title %></h1>
     </div>
     <% host = @event.host %>
-    <%= link_to user_path(host), :action => 'go', class: "card-box bg-white" do %>
+    <%= link_to user_path(host), class: "card-box bg-white" do %>
       <div class="d-flex card-grid">
         <% if host.photo.key %>
           <%= cl_image_tag host.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
@@ -80,7 +80,7 @@
         <% if guest.status == "Pending" %>
           <div class="card-box bg-white">
             <div class="d-flex card-grid">
-              <%= link_to user_path(user), :action => 'go' do %>
+              <%= link_to user_path(user) do %>
                 <% if user.photo.key %>
                   <%= cl_image_tag user.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
                 <% else %>
@@ -89,7 +89,7 @@
               <% end %>
               <div class="flex-grow-1">
                 <p class="m-0">
-                  <strong><%= link_to user_path(user), :action => 'go' do %><%= user.first_name %> <%= user.last_name %><% end %></strong>
+                  <strong><%= link_to user_path(user) do %><%= user.first_name %> <%= user.last_name %><% end %></strong>
                 </p>
                 <small>
                   <% if user.years_of_experience > 0 %>

@@ -2,7 +2,7 @@
 <div class="card-box bg-white">
   <div class="d-flex flex-column review-grid">
     <div class="d-flex card-grid justify-content-between align-items-center">
-      <%= link_to user_path(user), :action => 'go' do %>
+      <%= link_to user_path(user) do %>
         <% if user.photo.key %>
           <%= cl_image_tag user.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
         <% else %>
@@ -10,7 +10,7 @@
         <% end %>
       <% end %>
       <div class="flex-grow-1">
-        <p class="m-0"><strong><%= link_to user_path(user), :action => 'go' do %><%= user.first_name %> <%= user.last_name %><% end %></strong></p>
+        <p class="m-0"><strong><%= link_to user_path(user) do %><%= user.first_name %> <%= user.last_name %><% end %></strong></p>
         <small><%= review.created_at.strftime("%b %e, %Y") %></small>
       </div>
       <div>

@@ -3,7 +3,7 @@
   <% current_user.friends.each do |friend| %>
     <div class="card-box bg-white">
       <div class="d-flex card-grid">
-        <%= link_to user_path(friend), :action => 'go' do %>
+        <%= link_to user_path(friend) do %>
           <% if friend.photo.key %>
             <%= cl_image_tag friend.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
           <% else %>
@@ -12,7 +12,7 @@
         <% end %>
         <div class="flex-grow-1">
           <p class="m-0">
-            <strong><%= link_to user_path(friend), :action => 'go' do %><%= friend.first_name %> <%= friend.last_name %><% end %></strong>
+            <strong><%= link_to user_path(friend) do %><%= friend.first_name %> <%= friend.last_name %><% end %></strong>
             <% if friend.belt != "None" %>
               <%= image_tag "belts/#{friend.belt.downcase}-belt.svg", alt: "#{friend.belt} belt", width: 20, class: "belt" %>
             <% end %>

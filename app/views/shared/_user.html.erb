@@ -1,4 +1,4 @@
-<%= link_to user_path(user), :action => 'go', class: "card-box bg-white" do %>
+<%= link_to user_path(user), class: "card-box bg-white" do %>
   <div class="d-flex card-grid">
     <% if user.photo.key %>
       <%= cl_image_tag user.photo.key, crop: :thumb, class: "rounded-circle avatar" %>
