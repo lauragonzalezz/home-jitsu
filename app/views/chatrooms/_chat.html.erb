@@ -3,7 +3,7 @@
 last_message = chat.messages.first
 if last_message
 %>
-  <%= link_to chatroom_path(chat), :action => 'go', class: "card-box bg-white" do %>
+  <%= link_to chatroom_path(chat), class: "card-box bg-white" do %>
     <div class="d-flex card-grid">
       <%
       #Find the other user

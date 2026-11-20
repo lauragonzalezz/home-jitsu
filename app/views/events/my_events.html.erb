@@ -19,7 +19,7 @@
   <h2>Invited events</h2>
   <div class="component-container">
   <% @invited_events.each do |guest| %>
-    <%= link_to event_path(guest.event.id), :action => 'go', class: "card-box bg-white" do %>
+    <%= link_to event_path(guest.event.id), class: "card-box bg-white" do %>
       <div class="d-flex flex-column event-grid">
         <div class="d-flex card-grid justify-content-between">
           <div>
@@ -49,7 +49,7 @@
   <h2>Joined events</h2>
   <div class="component-container">
   <% @joined_events.each do |guest| %>
-    <%= link_to event_path(guest.event), :action => 'go', class: "card-box bg-white" do %>
+    <%= link_to event_path(guest.event), class: "card-box bg-white" do %>
       <div class="d-flex flex-column event-grid">
         <div class="d-flex card-grid justify-content-between">
           <div>
