@@ -90,4 +90,26 @@ class EventsControllerTest < ActionDispatch::IntegrationTest
 
     assert_select "button[data-turbo-submits-with=?]", "Joining…"
   end
+
+  test "my_events renders joined events through the shared event card" do
+    sign_in users(:carol) # carol has accepted a spot at open_mat
+    get my_events_path
+    assert_response :success
+
+    assert_select "h2", text: "Joined events"
+    # Rendered as a shared event card: a link to the event.
+    assert_select "a.card-box[href=?]", event_path(events(:open_mat))
+    assert_includes @response.body, "Sunday Open Mat"
+  end
+
+  test "my_events renders invited events through the shared event card" do
+    carol = users(:carol)
+    Guest.create!(event: events(:closed_mat), guest: carol, status: "Invited")
+    sign_in carol
+    get my_events_path
+    assert_response :success
+
+    assert_select "h2", text: "Invited events"
+    assert_select "a.card-box[href=?]", event_path(events(:closed_mat))
+  end
 end

@@ -10,21 +10,7 @@
             <%= image_tag "avatar.svg", alt: "", width: 40, class: "avatar" %>
           <% end %>
         <% end %>
-        <div class="flex-grow-1">
-          <p class="m-0">
-            <strong><%= link_to user_path(friend) do %><%= friend.first_name %> <%= friend.last_name %><% end %></strong>
-            <% if friend.belt != "None" %>
-              <%= image_tag "belts/#{friend.belt.downcase}-belt.svg", alt: "#{friend.belt} belt", width: 20, class: "belt" %>
-            <% end %>
-          </p>
-          <small>
-            <% if friend.years_of_experience > 0 %>
-              <%= friend.years_of_experience%> years of experience
-            <% else %>
-              New to BJJ
-            <% end %>
-          </small>
-        </div>
+        <%= render "shared/user_summary", user: friend, link: true %>
         <div class="d-flex align-items-center">
           <% if !@guests_ids.include?(friend.id) %>
             <%= button_to "Invite",  {:controller => "guests", :action => "invite", :event_id => @event.id, :guest_id => friend.id },  {:method=>:post, class: "btn btn-xs btn-primary d-block w-100", data: { turbo_submits_with: "Inviting…" }} %>
