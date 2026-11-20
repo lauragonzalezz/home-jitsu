@@ -10,17 +10,14 @@ application.register("address-autocomplete", AddressAutocompleteController)
 import AdvancedSearchController from "./advanced_search_controller"
 application.register("advanced-search", AdvancedSearchController)
 
-import AutoSubmitController from "./auto_submit_controller"
-application.register("auto-submit", AutoSubmitController)
-
 import AttendeeListController from "./attendee_list_controller"
 application.register("attendee-list", AttendeeListController)
 
+import AutoSubmitController from "./auto_submit_controller"
+application.register("auto-submit", AutoSubmitController)
+
 import ChatroomSubscriptionController from "./chatroom_subscription_controller"
 application.register("chatroom-subscription", ChatroomSubscriptionController)
-
-import HelloController from "./hello_controller"
-application.register("hello", HelloController)
 
 import HistoryBackController from "./history_back_controller"
 application.register("history-back", HistoryBackController)
