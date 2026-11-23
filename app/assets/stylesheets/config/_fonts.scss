@@ -2,8 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;1,400;1,700&display=swap');
 
 // Define fonts for body and headers
-$body-font: "Roboto", "sans-serif";
-$headers-font: "Roboto", "sans-serif";
+// sans-serif is the CSS generic keyword, so it must stay unquoted; quoting it
+// makes the browser look for a family literally named "sans-serif".
+$body-font: "Roboto", sans-serif;
+$headers-font: "Roboto", sans-serif;
 
 // To use a font file (.woff) uncomment following lines
 // @font-face {

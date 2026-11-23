@@ -4,7 +4,9 @@
 
 .mapboxgl-popup-content {
   text-align: center;
-  font-family: "Open Sans", sans-serif;
+  // Use the app font (Open Sans was never loaded, so this was silently falling
+  // back to the browser default).
+  font-family: $body-font;
   padding: 15px 10px;
   h2 {
     font-size: 16px;
