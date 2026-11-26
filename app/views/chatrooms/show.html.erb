@@ -14,11 +14,7 @@
         message: "Say hi to #{other_user.first_name} to get started." %>
     <% end %>
     <% @messages.each do |message| %>
-      <div class="message-row d-flex <%= message.sender?(current_user) ? 'justify-content-end' : 'justify-content-start' %>">
-        <div class="<%= message.sender?(current_user) ? 'sender-style' : 'receiver-style' %>">
-          <%= render "messages/message", message: message %>
-        </div>
-      </div>
+      <%= render "messages/message", message: message, sent: message.sender?(current_user) %>
     <% end %>
   </div>
 
