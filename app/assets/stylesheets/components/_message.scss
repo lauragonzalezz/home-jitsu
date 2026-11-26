@@ -1,27 +1,32 @@
-// To style the wrapping div
+// Wrapping row. Received messages sit on the left; your own are flipped right
+// by the `.sent` state class (added on the initial render and by the chatroom
+// subscription controller for live messages).
 .message-row {
+  display: flex;
+  justify-content: flex-start;
   margin-bottom: 10px;
 }
+.message-row.sent {
+  justify-content: flex-end;
+}
 
-// To style the message itself
-.sender-style, .receiver-style {
+// The message bubble. Default look is a received message.
+.message-bubble {
   width: 70%;
   max-width: 400px;
   padding: 10px 15px;
-}
-
-.sender-style {
-  background-color: $main-purple;
-  border-radius: 5px 5px 0 5px;
-  p, small {
-    color: $white;
-  }
-}
-
-.receiver-style {
   background-color: $light-purple;
   border-radius: 5px 5px 5px 0;
   p, small {
     color: $dark-grey;
+  }
+}
+
+// Sent message: purple bubble, white text, tail flipped to the right.
+.message-row.sent .message-bubble {
+  background-color: $main-purple;
+  border-radius: 5px 5px 0 5px;
+  p, small {
+    color: $white;
   }
 }

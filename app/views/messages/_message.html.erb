@@ -1,7 +1,21 @@
-<div id="message-<%= message.id %>">
-  <small>
-    <strong><em><%= message.user.first_name %></em></strong>
-    <em>- <%= message.created_at.strftime("%a %b %e at %l:%M %p") %></em>
-  </small>
-  <p class="m-0 small"><%= message.content %></p>
+<%#
+  Full message row: the single source of truth for a message's markup, used by
+  both the initial page render and the Action Cable broadcast.
+
+  The broadcast is shared by both participants, so it can't tell which side is
+  "mine". It renders a received message (left) by default; `sent` is passed on
+  the initial render, and the subscription controller toggles `.sent` per
+  viewer from the broadcast sender_id.
+%>
+<% sent = local_assigns.fetch(:sent, false) %>
+<div class="message-row<%= " sent" if sent %>" data-sender-id="<%= message.user_id %>">
+  <div class="message-bubble">
+    <div id="message-<%= message.id %>">
+      <small>
+        <strong><em><%= message.user.first_name %></em></strong>
+        <em>- <%= message.created_at.strftime("%a %b %e at %l:%M %p") %></em>
+      </small>
+      <p class="m-0 small"><%= message.content %></p>
+    </div>
+  </div>
 </div>

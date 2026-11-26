@@ -55,33 +55,17 @@ export default class extends Controller {
     })
   }
 
-  #buildMessageElement(currentUserIsSender, message) {
-    return `
-      <div class="message-row d-flex ${this.#justifyClass(currentUserIsSender)}">
-        <div class="${this.#userStyleClass(currentUserIsSender)}">
-          ${message}
-        </div>
-      </div>
-    `
-  }
-  #justifyClass(currentUserIsSender) {
-    return currentUserIsSender ? "justify-content-end" : "justify-content-start"
-  }
-  #userStyleClass(currentUserIsSender) {
-    return currentUserIsSender ? "sender-style" : "receiver-style"
-  }
   #insertMessageAndScrollDown(data) {
     // Drop the "no messages yet" placeholder once a real message lands.
     this.messagesTarget.querySelector(".empty-state")?.remove()
 
-    // Logic to know if the sender is the current_user
-    const currentUserIsSender = this.currentUserIdValue === data.sender_id
-
-    // Creating the whole message from the `data.message` String
-    const messageElement = this.#buildMessageElement(currentUserIsSender, data.message)
-
-    // Inserting the `message` in the DOM
-    this.messagesTarget.insertAdjacentHTML("beforeend", messageElement)
+    // data.message is the server-rendered _message partial, already the full
+    // row. The broadcast is shared by both participants and renders received
+    // (left), so flip our own messages to the right for this viewer.
+    this.messagesTarget.insertAdjacentHTML("beforeend", data.message)
+    if (data.sender_id === this.currentUserIdValue) {
+      this.messagesTarget.lastElementChild.classList.add("sent")
+    }
     this.#scrollToBottom()
   }
 }
